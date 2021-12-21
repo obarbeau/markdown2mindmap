@@ -1,0 +1,26 @@
+[:div
+ {}
+ [:markdown/heading {:level 1} "Root"]
+ [:p {} "Hello"]
+ [:markdown/heading {:level 2} "Level2 title"]
+ [:ul
+  {}
+  [:markdown/bullet-list-item
+   {}
+   [:p {} "list-item1 space " [:em {} "separated"] " words"]
+   [:ul
+    {}
+    [:markdown/bullet-list-item
+     {}
+     [:p {} "list-item1.1" [:markdown/soft-line-break {}] "hello"]]
+    [:markdown/bullet-list-item
+     {}
+     [:p {} "list-item1.2"]
+     [:ul
+      {}
+      [:markdown/bullet-list-item {} [:p {} "list-item1.2.1"]]
+      [:markdown/bullet-list-item {} [:p {} "list-item1.2.2"]]]]
+    [:markdown/bullet-list-item {} [:p {} "list-item1.3"]]]]
+  [:markdown/bullet-list-item {} [:p {} "list-item2"]]
+  [:markdown/bullet-list-item {} [:p {} "list-item3"]]]
+ [:p {} "new-paragraph"]]

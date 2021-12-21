@@ -1,0 +1,5 @@
+#kaocha/v1
+ {:kaocha.plugin.capture-output/capture-output? true
+  :kaocha.watch/ignore ["*.tmp"]
+  :plugins [:kaocha.plugin/hooks]
+  :kaocha.hooks/pre-report [markdown2mindmap.test-helpers/pre-report]}

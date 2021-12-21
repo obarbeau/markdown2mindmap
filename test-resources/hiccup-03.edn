@@ -1,0 +1,10 @@
+[:div
+ {}
+ [:markdown/heading {:level 1} "Root"]
+ [:ul
+  {}
+  [:markdown/bullet-list-item
+   {}
+   [:p {} "listitem1"]
+   [:ul {} [:markdown/bullet-list-item {} [:p {} "listitem1.1"]]]]
+  [:markdown/bullet-list-item {} [:p {} "listitem2"]]]]

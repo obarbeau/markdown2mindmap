@@ -1,0 +1,10 @@
+* Root
+** Level2 title
+***_ list-item1 space <i>separated</i> words
+****_ list-item1.1
+****_ list-item1.2
+*****_ list-item1.2.1
+*****_ list-item1.2.2
+****_ list-item1.3
+***_ list-item2
+***_ list-item3

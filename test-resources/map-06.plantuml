@@ -1,0 +1,11 @@
+* Root
+** Level2 title
+***_ list-item1 space <i>separated</i> <b>words</b>
+****_ list-item1.1
+****_ list-item1.2
+*****_ list-item1.2.1
+*****_ list-item1.2.2
+****_ list-item1.3
+***_ list-item2
+***_ list-item3
+** Level2 title with <i>italic</i> <b>bold</b>
