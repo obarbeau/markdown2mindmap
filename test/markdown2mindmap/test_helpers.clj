@@ -54,5 +54,3 @@
 (defn hiccup-file->map [number]
   (->> (read-hiccup number)
        m2mcore/hiccup->map))
-
-;; 
