@@ -13,6 +13,7 @@
   (:gen-class))
 
 (def log-file-name "./output/markdown2mindmap.log")
+(def log-keys [:ol-ul :li :p :heading :modifier :buffer :ignore-string])
 
 (t/merge-config!
  {:timestamp-opts  {:pattern ""}
@@ -39,7 +40,8 @@
 
 (defn- enter
   [result ctype]
-  (info (t/color-str :blue (str ">>enter-" (name ctype))) (dissoc @result :plantuml)))
+  (info (t/color-str :blue (str ">>enter-" (name ctype)))
+        "\n " (select-keys @result log-keys)))
 
 (defn- now-inside
   "We are inside a `ctype` element. Sets the `inside` flag to true
@@ -65,8 +67,8 @@
   x)
 
 (defn- enter-li
-  "Enters a list element. Cheat on the number of children; force to one."
-  ;; @todo why cheat????
+  "Enters a list element. The number of children is forced to one.
+   Nesting of ol/ul is not managed by li element."
   [result [:as x]]
   (now-inside result :li 1)
   x)
@@ -163,13 +165,14 @@
   [result ctype now-outside?]
   (when now-outside?
     (swap! result assoc-in [ctype :inside] false))
-  (info (t/color-str :purple (str "<<exit-" (name ctype))) (dissoc @result :plantuml)))
+  (info (t/color-str :purple (str "<<exit-" (name ctype)))
+        (select-keys @result log-keys)))
 
 (defn- exit-if-required
   "If we are we inside a `ctype` element, sets the new number of children.
   If it wad the last child, execute the `exit-fn`."
   [result ctype exit-fn]
-  (let [[last? new-children] (inside-and-last? result ctype)]
+  (when-let [[last? new-children] (inside-and-last? result ctype)]
     (swap! result assoc-in [ctype :children] new-children)
     (when last?
       (exit-fn result))))
@@ -224,13 +227,15 @@
     (info "ignore string: " s)
     (do
       (swap! result update-in [:buffer] str (apply-modifier result s))
-      (info (t/color-str :blue ">>process-string") s (dissoc @result :plantuml))))
+      (info (t/color-str :green ">>process-string") s)))
 
   (swap! result assoc :ignore-string false)
 
   (exit-if-required result :heading exit-heading)
 
   (exit-if-required result :p exit-p)
+  (info (t/color-str :green "<<process-string") "\n "
+        (select-keys @result log-keys))
   s)
 
 (defn- through-slb
