@@ -1,0 +1,9 @@
+# an empty localhost site is required to 'load' the https_port config,
+# even if later we add file_servers that listen on other ports...
+{
+	http_port 8081
+	https_port 8082
+}
+
+localhost {
+}
