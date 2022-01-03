@@ -37,13 +37,13 @@ Run the project's tests
 (this will generate test images in the output directory):
 
 ```shell
-clojure -T:build test
+clojure -T:dev:build test
 ```
 
 Run the project's CI pipeline and build an uberjar:
 
 ```shell
-clojure -T:build ci
+clojure -T:dev:build ci
 ```
 
 This will produce an updated `pom.xml` file with synchronized dependencies inside the `META-INF`
@@ -56,7 +56,9 @@ from `build.clj`.
 
 Run that uberjar:
 
-    $ java -jar target/markdown2mindmap-0.1.0-SNAPSHOT.jar
+```shell
+java -jar target/markdown2mindmap-0.1.0-SNAPSHOT.jar
+```
 
 If you remove `version` from `build.clj`, the uberjar will become `target/markdown2mindmap-standalone.jar`.
 
