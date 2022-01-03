@@ -3,6 +3,8 @@
             [clojure.string :as str]
             [clojure.walk :refer [prewalk]]
             [cybermonday.ir]
+            [clojure.edn :as edn]
+            [puget.printer :as puget]
             [taoensso.encore :as enc]
             [taoensso.timbre :as t :refer [info infof]]
             [taoensso.timbre.appenders.core :as appenders])
@@ -35,6 +37,10 @@
 
 ;; ------------------------------------
 
+(defn- enter
+  [where result]
+  (info (t/color-str :blue (str ">>enter-" where)) (dissoc @result :plantuml)))
+
 (defn- enter-heading
   "Enters a heading element. Level is given in attributes."
   [result [_elt-name attributes & children :as x]]
@@ -42,7 +48,7 @@
     (swap! result assoc-in [:heading :level] level-heading)
     (swap! result assoc-in [:heading :inside] true)
     (swap! result assoc-in [:heading :children] (count children)))
-  (info (t/color-str :blue ">>enter-heading") @result)
+  (enter "heading" result)
   x)
 
 (defn- enter-ol-ul
@@ -50,7 +56,7 @@
   [result [_elt-name _attributes & children :as x]]
   (swap! result assoc-in [:ul :inside] true)
   (swap! result update-in [:ul :children] #(cons (count children) %))
-  (info (t/color-str :blue ">>enter-ol-ul") @result)
+  (enter "ol-ul" result)
   x)
 
 (defn- enter-li
@@ -58,7 +64,7 @@
   [result [:as x]]
   (swap! result assoc-in [:li :inside] true)
   (swap! result assoc-in [:li :children] 1)
-  (info (t/color-str :blue ">>enter-li") @result)
+  (enter "li" result)
   x)
 
 (defn- enter-p
@@ -66,28 +72,28 @@
   [result [_elt-name _attributes & children :as x]]
   (swap! result assoc-in [:p :inside] true)
   (swap! result assoc-in [:p :children] (count children))
-  (info (t/color-str :blue ">>enter-p") @result)
+  (enter "p" result)
   x)
 
 (defn- enter-em
   "Enters an 'emphasize' modifier."
   [result [:as x]]
   (swap! result assoc :modifier :em)
-  (info (t/color-str :blue ">>enter-em") @result)
+  (enter "em" result)
   x)
 
 (defn- enter-s
   "Enters a 'strike' modifier."
   [result [:as x]]
   (swap! result assoc :modifier :s)
-  (info (t/color-str :blue ">>enter-s") @result)
+  (enter "s" result)
   x)
 
 (defn- enter-strong
   "Enters a 'strong' modifier."
   [result [:as x]]
   (swap! result assoc :modifier :strong)
-  (info (t/color-str :blue ">>enter-strong") @result)
+  (enter "strong" result)
   x)
 
 (defn- apply-modifier
@@ -103,6 +109,10 @@
 
 ;; ------------------------------------
 
+(defn- exit
+  [where result]
+  (info (t/color-str :purple (str "<<exit-" where)) (dissoc @result :plantuml)))
+
 (defn- exit-heading
   "Exit a heading element. Conj current buffer to plantuml text."
   [result]
@@ -113,8 +123,7 @@
                  (#(apply str %)))]
     (swap! result update :plantuml conj text)
     (swap! result assoc :buffer ""))
-  (info (t/color-str :purple "<<exit-heading") @result))
-
+  (exit "heading" result))
 
 (defn- last-simple-child?
   "True if it is the last child of a standard element."
@@ -149,7 +158,7 @@
 (defn- exit-ol-ul
   "Exit a list, ordered or not."
   [result]
-  (info (t/color-str :purple "<<exit-ol-ul") @result))
+  (exit "ol-ul" result))
 
 (defn- exit-li
   "Exit a list element.
@@ -164,7 +173,7 @@
                  (#(apply str %)))]
     (swap! result update :plantuml conj text)
     (swap! result assoc :buffer "")
-    (info (t/color-str :purple "<<exit-li") @result)
+    (exit "li" result)
     (when (and (get-in @result [:ul :inside])
                (last-child? result :ul))
       (exit-ol-ul result))))
@@ -173,7 +182,7 @@
   "Exit a paragraph. The buffer is deleted if it has not been used."
   [result]
   (swap! result assoc-in [:p :inside] false)
-  (info (t/color-str :purple "<<exit-p") @result)
+  (exit "p" result)
 
   (when (and (get-in @result [:li :inside])
              (last-child? result :li))
@@ -281,7 +290,7 @@
     (prewalk (partial walk-fn result) hiccup-data)
     @result))
 
-(defn hiccup->map
+(defn hiccup->puml
   "Convert hiccup data to plantuml text."
   [hiccup-data]
   (->> hiccup-data
@@ -309,12 +318,31 @@
         (.generateImage out))
     (.close out)))
 
+(defn md->hiccup-file
+  "Generates a hiccup (edn) file from a markdown file."
+  [input-file output-file]
+  (->> input-file
+       slurp
+       md->hiccup
+       puget/pprint-str
+       (spit output-file)))
+
+(defn hiccup->puml-file
+  "Generates a plantuml file from an hiccup file."
+  [input-file output-file]
+  (->> input-file
+       slurp
+       edn/read-string
+       hiccup->puml
+       (spit output-file)))
+
 (defn md->png
   "Generates an image from a markdown file."
   [input-file output-file]
-  (->> (slurp input-file)
+  (->> input-file
+       slurp
        md->hiccup
-       hiccup->map
+       hiccup->puml
        (create-image! output-file)))
 
 (defn -main [input-file output-file]

@@ -11,8 +11,8 @@
     (testing "->hiccup"
       (is (=  (mth/read-hiccup n)
               (mth/md-file->hiccup n))))
-    (testing "->map"
+    (testing "->puml"
       (is (=  (mth/slurp-plantuml n)
-              (mth/hiccup-file->map n))))
+              (mth/hiccup-file->puml n))))
     (sut/md->png (mth/format-it "input" n "md") (mth/output-img n))
     (infof "\n--- End of test %d ---" n)))

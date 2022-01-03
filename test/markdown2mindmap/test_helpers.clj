@@ -13,7 +13,7 @@
         total (+ (or fail 0) (or error 0))]
     (when (= :summary atype)
       (shell/sh "/usr/bin/paplay"
-                (str "/test-resources/"
+                (str "./test-resources/"
                      (if (zero? total)
                        "system-ready"
                        "dialog-error")
@@ -51,6 +51,6 @@
 (defn output-img [number]
   (format "output/output-%02d.png" number))
 
-(defn hiccup-file->map [number]
+(defn hiccup-file->puml [number]
   (->> (read-hiccup number)
-       m2mcore/hiccup->map))
+       m2mcore/hiccup->puml))
