@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+local codox="\n\n[codox] Please update or generate codox documentation before commit\n\n"
+
+do_exit() {
+  echo -e "$codox"
+  exit 1
+}
+
+# we take as assumptions: doc is generated for all namespaces
+# of the 'src' directory into the 'doc' directory
+
+# find last modified file in the doc directory
+local latest_doc_file=$(find doc -type f -exec stat -c '%Y %n' {} \; 2>/dev/null | sort --numeric-sort --reverse | head -1 | cut -d' ' -f2)
+
+# block if any file in src is more recent
+if [[ $(find src -newer $latest_doc_file -print) ]]; then
+  do_exit
+fi
+
+unset do_exit
+
+exit 0
