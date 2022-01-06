@@ -1,9 +1,9 @@
 #!/bin/zsh
 
-local codox="\n\n[codox] Please update or generate codox documentation before commit\n\n"
+local codox="\n\n[codox] Please update or generate codox documentation before commit.\n\n"
 
 do_exit() {
-  echo -e "$codox"
+  echo -e "$1"
   exit 1
 }
 
@@ -15,7 +15,7 @@ local latest_doc_file=$(find doc -type f -exec stat -c '%Y %n' {} \; 2>/dev/null
 
 # block if any file in src is more recent
 if [[ $(find src -newer $latest_doc_file -print) ]]; then
-  do_exit
+  do_exit $codox
 fi
 
 unset do_exit
