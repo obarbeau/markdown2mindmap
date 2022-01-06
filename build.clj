@@ -92,7 +92,8 @@
                           :automatic_https {:disable false}})
     (cawdy/add-route conn
                      :project-documentation "localhost"
-                     :files {:root (.getAbsolutePath (io/file "doc"))})))
+                     :files {:root (.getAbsolutePath (io/file "doc"))})
+    (println "Please enjoy documentation at https://localhost:2015")))
 
 (defn eastwood "Run Eastwood." [opts]
   (-> opts (bb/run-task [:eastwood])))

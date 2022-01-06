@@ -2,7 +2,7 @@
   (:require [clojure.test :refer [deftest is testing]]
             [taoensso.timbre :as t :refer [infof]]
             [markdown2mindmap.test-helpers :as mth]
-            [markdown2mindmap.core :as sut]))
+            [markdown2mindmap.transform :as sut]))
 
 (deftest a-test
   (mth/delete-log)

@@ -2,7 +2,8 @@
   (:require [clojure.java.io :as io]
             [clojure.java.shell :as shell]
             [clojure.edn :as edn]
-            [markdown2mindmap.core :as m2mcore]))
+            [markdown2mindmap.log :as m2mlog]
+            [markdown2mindmap.transform :as m2mtransform]))
 
 (defn pre-report
   "Kaocha: beep after test execution."
@@ -21,7 +22,7 @@
   event)
 
 (defn delete-log []
-  (io/delete-file m2mcore/log-file-name true))
+  (io/delete-file m2mlog/log-file-name true))
 
 (defn format-it [what number extension]
   (format "test-resources/%s-%02d.%s" what number extension))
@@ -41,7 +42,7 @@
 (defn md-file->hiccup
   "Markdown file to hiccup file"
   [number]
-  (m2mcore/md->hiccup (slurp-input number)))
+  (m2mtransform/md->hiccup (slurp-input number)))
 
 (defn read-hiccup
   "Read edn from hiccup file"
@@ -53,4 +54,4 @@
 
 (defn hiccup-file->puml [number]
   (->> (read-hiccup number)
-       m2mcore/hiccup->puml))
+       m2mtransform/hiccup->puml))
