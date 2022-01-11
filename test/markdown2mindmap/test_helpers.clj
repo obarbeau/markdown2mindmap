@@ -24,6 +24,10 @@
 (defn delete-log []
   (io/delete-file m2mlog/log-file-name true))
 
+(defn delete-output-dir []
+  (doseq [ff (.listFiles (io/file "./output"))]
+    (io/delete-file ff)))
+
 (defn format-it [what number extension]
   (format "test-resources/%s-%02d.%s" what number extension))
 
@@ -48,9 +52,6 @@
   "Read edn from hiccup file"
   [n]
   (edn/read-string (slurp-hiccup n)))
-
-(defn output-img [number]
-  (format "output/output-%02d.png" number))
 
 (defn hiccup-file->puml [number]
   (->> (read-hiccup number)

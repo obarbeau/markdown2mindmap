@@ -1,6 +1,6 @@
 # Markdown2mindmap
 
-This small library converts Markdown files to Mind maps.
+This small application converts Markdown files to Mind maps.
 
 It is written in Clojure and uses:
 
@@ -8,7 +8,7 @@ It is written in Clojure and uses:
   to convert markdown text to a hiccup AST.
 - [PlantUML](https://plantuml.com/mindmap-diagram) to create the images.
 
-The two main objectives for this lib are:
+The two main objectives for this app are:
 
 - quick and easy production of PNG images;
 - use any independant markdown document as source.
@@ -25,13 +25,7 @@ Download from https://github.com/obarbeau/markdown2mindmap
 
 FIXME: explanation
 
-Run the project directly, via `:main-opts` (`-m markdown2mindmap.core`):
-
-```shell
-clojure -M:run-m <input-file> <output-file>
-# For example
-clojure -M:run-m test-resources/input-07.md ./mindmap.png
-```
+Run the application: see [usage](src/markdown2mindmap/core.clj#15)
 
 Run the project's tests
 (this will generate test images in the output directory):

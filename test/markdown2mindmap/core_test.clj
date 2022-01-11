@@ -6,6 +6,7 @@
 
 (deftest a-test
   (mth/delete-log)
+  (mth/delete-output-dir)
   (doseq [n (range 1 8)]
     (infof "--- Start of test %d ---" n)
     (testing "->hiccup"
@@ -14,5 +15,5 @@
     (testing "->puml"
       (is (=  (mth/slurp-plantuml n)
               (mth/hiccup-file->puml n))))
-    (sut/md->png (mth/format-it "input" n "md") (mth/output-img n))
+    (sut/md->mindmap (mth/format-it "input" n "md") "output" "svg")
     (infof "\n--- End of test %d ---" n)))

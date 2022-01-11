@@ -9,7 +9,9 @@
             [puget.printer :as puget]
             [taoensso.timbre :as t :refer [info infof]])
   (:import (java.io FileOutputStream)
-           (net.sourceforge.plantuml SourceStringReader)))
+           (net.sourceforge.plantuml SourceStringReader
+                                     FileFormatOption
+                                     FileFormat)))
 
 (defn- walk-fn
   [result x]
@@ -81,11 +83,18 @@
 
 (defn- create-image!
   "Generates an image from plantuml text."
-  [output-file plantuml-text]
+  [output-file type plantuml-text]
   (let [uml (->plantuml2 plantuml-text)
-        out (FileOutputStream. (io/file output-file))]
+        out (FileOutputStream. (io/file output-file))
+        format (->> type
+                    str/upper-case
+                    (.getField FileFormat)
+                    ;;The nil is there because you are getting a static field,
+                    ;; rather than a member field of a particular object.
+                    (#(.get % nil))
+                    FileFormatOption.)]
     (-> (SourceStringReader. uml)
-        (.generateImage out))
+        (.generateImage out format))
     (.close out)))
 
 ;; ------------------------------------
@@ -94,15 +103,6 @@
   "Converts markdown data to hiccup AST with cybermonday."
   [data]
   (cybermonday.ir/md-to-ir data))
-
-(defn hiccup->puml
-  "Convert hiccup data to plantuml text."
-  [hiccup-data]
-  (->> hiccup-data
-       walk-hiccup
-       :plantuml
-       reverse
-       (str/join "\n")))
 
 (defn md->hiccup-file
   "Generates a hiccup (edn) file from a markdown file."
@@ -113,6 +113,15 @@
        puget/pprint-str
        (spit output-file)))
 
+(defn hiccup->puml
+  "Convert hiccup data to plantuml text."
+  [hiccup-data]
+  (->> hiccup-data
+       walk-hiccup
+       :plantuml
+       reverse
+       (str/join "\n")))
+
 (defn hiccup->puml-file
   "Generates a plantuml file from an hiccup file."
   [input-file output-file]
@@ -122,11 +131,16 @@
        hiccup->puml
        (spit output-file)))
 
-(defn md->png
-  "Generates an image from a markdown file."
-  [input-file output-file]
-  (->> input-file
-       slurp
-       md->hiccup
-       hiccup->puml
-       (create-image! output-file)))
+(defn md->mindmap
+  "Generates an mindmap image (with the `type` format) from a markdown file."
+  [input-file output-directory type]
+  (let [output-file (-> input-file
+                        (str/replace #"(?i)\.md" "")
+                        (str/replace #".*/" "")
+                        (str "." type)
+                        (#(io/file output-directory %)))]
+    (->> input-file
+         slurp
+         md->hiccup
+         hiccup->puml
+         (create-image! output-file type))))

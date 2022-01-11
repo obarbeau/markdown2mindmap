@@ -5,5 +5,5 @@ function markdown2mindmap_test() {
 
 function markdown2mindmap_repl() {
   cd $CLJ/markdown2mindmap
-  clojure -M:repl/rebel
+  clojure -M:dev:repl/rebel
 }

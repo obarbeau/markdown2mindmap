@@ -4,29 +4,31 @@
             [markdown2mindmap.transform :as m2mtransform])
   (:gen-class))
 
+(def cli-options
+  [["-t" "--type OUTPUT-TYPE"
+    "Either 'svg' (default) or 'png'."
+    :default "svg"
+    :parse-fn #(str/lower-case %)
+    :validate [#(#{"svg" "png"} %) "Either 'svg' or 'png' format."]]
+   ["-h" "--help"]])
+
 (defn usage [options-summary]
   (->> ["Converts Markdown files to Mind maps."
         ""
-        "Usage: clojure -M:run-m [options] <action> <input-file> <output-file>"
+        "Usage: markdown2mindmap [options] <action> <input-file> <output-dir>"
         ""
         "Options:"
         options-summary
         ""
         "Actions:"
-        "  convert    Standard convertion."]
+        "  convert    Standard convertion."
+        ""
+        "Example: clojure -M:run-m convert test-resources/input-07.md ."]
        (str/join \newline)))
 
 (defn error-msg [errors]
   (str "The following errors occurred while parsing your command:\n\n"
        (str/join \newline errors)))
-
-(def cli-options
-  [["-t" "--type OUTPUT-TYPE"
-    "By default the format will be an svg file."
-    :default "svg"
-    :parse-fn #(str/lower-case %)
-    :validate [#(#{"svg" "png"} %) "Either 'svg' or 'png' format."]]
-   ["-h" "--help"]])
 
 (defn exit [status msg]
   (println msg)
@@ -39,29 +41,31 @@
   [args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
     (cond
-      (:help options) ; help => exit OK with usage summary
+      ;; help => exit OK with usage summary
+      (:help options)
       {:exit-message (usage summary) :ok? true}
 
-      errors ; errors => exit with description of errors
+      ;; errors => exit with description of errors
+      errors
       {:exit-message (error-msg errors)}
 
-      ; custom validation on arguments
+      ;; custom validation on arguments
       (and (= 3 (count arguments))
            (#{"convert"} (first arguments)))
       {:action (first arguments) :arguments (rest arguments) :options options}
 
-      :else ; failed custom validation => exit with usage summary
+      ;; failed custom validation => exit with usage summary
+      :else
       {:exit-message (usage summary)})))
 
-;; (defn -main [input-file output-file]
-;;   (m2mtransform/md->png input-file output-file)
-;;   (System/exit 0))
-
 (defn -main [& args]
-  (let [{:keys [action options arguments exit-message ok?]} (validate-args args)]
-    (prn action options arguments)
+  (let [{:keys [action options arguments exit-message ok?]} (validate-args args)
+        [input-file output-directory] arguments]
+    (prn input-file output-directory (:type options))
     (if exit-message
       (exit (if ok? 0 1) exit-message)
       (case action
-        "clean" (m2mtransform/md->png (first arguments) (second arguments)))))
+        "convert" (m2mtransform/md->mindmap input-file
+                                            output-directory
+                                            (:type options)))))
   (exit 0 ":ok"))
