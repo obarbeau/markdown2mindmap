@@ -83,9 +83,8 @@
 
 (defn- create-image!
   "Generates an image from puml text."
-  [output-file type puml-text]
-  (let [uml (->puml2 puml-text)
-        out (FileOutputStream. (io/file output-file))
+  [output-file type puml2]
+  (let [out (FileOutputStream. (io/file output-file))
         format (->> type
                     str/upper-case
                     (.getField FileFormat)
@@ -93,7 +92,7 @@
                     ;; rather than a member field of a particular object.
                     (#(.get % nil))
                     FileFormatOption.)]
-    (-> (SourceStringReader. uml)
+    (-> (SourceStringReader. puml2)
         (.generateImage out format))
     (.close out)))
 
@@ -143,4 +142,13 @@
          slurp
          md->hiccup
          hiccup->puml
+         ->puml2
          (create-image! output-file type))))
+
+(defn list-all-fonts
+  "Creates an SVG image listing all fonts available on the system."
+  [output-file]
+  (create-image! output-file "svg" (clojure.string/join
+                                    "\n" ["@startuml"
+                                          "listfonts"
+                                          "@enduml"])))

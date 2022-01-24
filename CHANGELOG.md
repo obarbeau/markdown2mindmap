@@ -10,4 +10,5 @@ This change log follows the conventions of [keepachangelog.com](http://keepachan
 - git hooks to ensure documentation and changelog are always up to date
 - clean output directory before tests
 - generates either SVG or PNG format
-- use puml instead of plantuml
+- uses `puml` instead of plantuml
+- adds `list-all-fonts` action
