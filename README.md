@@ -23,9 +23,7 @@ Download from https://github.com/obarbeau/markdown2mindmap
 
 ## Usage
 
-FIXME: explanation
-
-Run the application: see [usage](src/markdown2mindmap/core.clj#15)
+Run the application: see [usage](src/markdown2mindmap/core.clj#L15-L26)
 
 Run the project's tests
 (this will generate test images in the output directory):

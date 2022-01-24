@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 function markdown2mindmap_test() {
   cd $CLJ/markdown2mindmap
   clojure -M:test/kaocha --watch

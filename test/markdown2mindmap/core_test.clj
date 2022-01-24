@@ -13,7 +13,7 @@
       (is (=  (mth/read-hiccup n)
               (mth/md-file->hiccup n))))
     (testing "->puml"
-      (is (=  (mth/slurp-plantuml n)
+      (is (=  (mth/slurp-puml n)
               (mth/hiccup-file->puml n))))
     (sut/md->mindmap (mth/format-it "input" n "md") "output" "svg")
     (infof "\n--- End of test %d ---" n)))

@@ -40,8 +40,8 @@
 (defn slurp-input [number]
   (slurp-it "input" number "md"))
 
-(defn slurp-plantuml [number]
-  (slurp-it "map" number "plantuml"))
+(defn slurp-puml [number]
+  (slurp-it "map" number "puml"))
 
 (defn md-file->hiccup
   "Markdown file to hiccup file"

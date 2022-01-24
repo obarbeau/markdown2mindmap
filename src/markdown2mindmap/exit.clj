@@ -68,13 +68,13 @@
       (exit-fn result))))
 
 (defn- exit-heading
-  "Exit a heading element. Conj current buffer to plantuml text."
+  "Exit a heading element. Conj current buffer to puml text."
   [result]
   (let [text (-> (get-in @result [:heading :level])
                  (repeat "*")
                  (concat " " (:buffer @result))
                  (#(apply str %)))]
-    (swap! result update :plantuml conj text)
+    (swap! result update :puml conj text)
     (swap! result assoc :buffer ""))
   (exit result :heading true))
 
@@ -93,7 +93,7 @@
         text (-> (repeat level-total  "*")
                  (concat  "_ " (:buffer @result))
                  (#(apply str %)))]
-    (swap! result update :plantuml conj text)
+    (swap! result update :puml conj text)
     (swap! result assoc :buffer "")
     (exit result :li true)
     (exit-if-required result :ol-ul exit-ol-ul)))

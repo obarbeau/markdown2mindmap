@@ -71,20 +71,20 @@
     (prewalk (partial walk-fn result) hiccup-data)
     @result))
 
-(defn- ->plantuml2
-  "Wraps plantuml text to plantuml syntax."
-  [plantuml]
+(defn- ->puml2
+  "Wraps puml text to puml syntax."
+  [puml]
   (clojure.string/join
    "\n"
    (list
     "@startmindmap"
-    plantuml
+    puml
     "@endmindmap")))
 
 (defn- create-image!
-  "Generates an image from plantuml text."
-  [output-file type plantuml-text]
-  (let [uml (->plantuml2 plantuml-text)
+  "Generates an image from puml text."
+  [output-file type puml-text]
+  (let [uml (->puml2 puml-text)
         out (FileOutputStream. (io/file output-file))
         format (->> type
                     str/upper-case
@@ -114,16 +114,16 @@
        (spit output-file)))
 
 (defn hiccup->puml
-  "Convert hiccup data to plantuml text."
+  "Convert hiccup data to puml text."
   [hiccup-data]
   (->> hiccup-data
        walk-hiccup
-       :plantuml
+       :puml
        reverse
        (str/join "\n")))
 
 (defn hiccup->puml-file
-  "Generates a plantuml file from an hiccup file."
+  "Generates a puml file from an hiccup file."
   [input-file output-file]
   (->> input-file
        slurp

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 cd "$(dirname "$0")" || exit 1
 for f in git-hooks/*; do
