@@ -10,6 +10,8 @@
     :default "svg"
     :parse-fn #(str/lower-case %)
     :validate [#(#{"svg" "png"} %) "Either 'svg' or 'png' format."]]
+   [nil "--style STYLE-FILE" "Apply custom style to mindmap"]
+   [nil "--with-puml" "Generate intermediate puml file"]
    ["-h" "--help"]])
 
 (defn usage [options-summary]
@@ -26,7 +28,7 @@
         "  list-all-fonts  Creates an SVG image listing all fonts available on the system."
         "                  output-file defaults to ./all-fonts.svg"
         ""
-        "Examples: clojure -M:run-m convert test-resources/input-07.md ."
+        "Examples: clojure -M:run-m convert --style resources/custom.css test-resources/input-07.md ."
         "          clojure -M:run-m list-all-fonts"]
        (str/join \newline)))
 
@@ -76,7 +78,7 @@
       (case action
         "convert"        (m2mtransform/md->mindmap input-file
                                                    output-directory
-                                                   (:type options))
+                                                   options)
         "list-all-fonts" (m2mtransform/list-all-fonts
                           (or output-file "./all-fonts.svg")))))
   (exit 0 ":ok"))

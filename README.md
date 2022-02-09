@@ -32,6 +32,12 @@ Run the project's tests
 clojure -T:dev:build test
 ```
 
+Génerate the project's documentation:
+
+```shell
+clojure -T:dev:build codox
+```
+
 Run the project's CI pipeline and build an uberjar:
 
 ```shell

@@ -15,5 +15,5 @@
     (testing "->puml"
       (is (=  (mth/slurp-puml n)
               (mth/hiccup-file->puml n))))
-    (sut/md->mindmap (mth/format-it "input" n "md") "output" "svg")
+    (sut/md->mindmap (mth/format-it "input" n "md") "output" {:type "svg" :style "resources/custom.css"})
     (infof "\n--- End of test %d ---" n)))

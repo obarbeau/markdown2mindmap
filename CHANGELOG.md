@@ -12,3 +12,5 @@ This change log follows the conventions of [keepachangelog.com](http://keepachan
 - generates either SVG or PNG format
 - uses `puml` instead of plantuml
 - adds `list-all-fonts` action
+- adds `--style STYLE-FILE` option
+- adds `--with-puml`

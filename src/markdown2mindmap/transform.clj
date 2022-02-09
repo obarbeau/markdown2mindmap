@@ -73,11 +73,12 @@
 
 (defn- ->puml2
   "Wraps puml text to puml syntax."
-  [puml]
+  [styles puml]
   (clojure.string/join
    "\n"
    (list
     "@startmindmap"
+    styles
     puml
     "@endmindmap")))
 
@@ -132,18 +133,28 @@
 
 (defn md->mindmap
   "Generates an mindmap image (with the `type` format) from a markdown file."
-  [input-file output-directory type]
-  (let [output-file (-> input-file
+  [input-file output-directory {:keys [type style with-puml]}]
+  (let [output-name (-> input-file
+                        ;; keeps only filename without extension
                         (str/replace #"(?i)\.md" "")
-                        (str/replace #".*/" "")
-                        (str "." type)
-                        (#(io/file output-directory %)))]
-    (->> input-file
-         slurp
-         md->hiccup
-         hiccup->puml
-         ->puml2
-         (create-image! output-file type))))
+                        ;; nor path
+                        (str/replace #".*/" ""))
+        output-img (-> output-name
+                        ;; adds selected extension
+                       (str "." type)
+                       (#(io/file output-directory %)))
+        output-puml (-> output-name
+                        (str ".puml")
+                        (#(io/file output-directory %)))
+        styles (when style (slurp style))
+        puml (->> input-file
+                  slurp
+                  md->hiccup
+                  hiccup->puml
+                  (->puml2 styles))]
+    (when with-puml
+      (spit output-puml puml))
+    (create-image! output-img type puml)))
 
 (defn list-all-fonts
   "Creates an SVG image listing all fonts available on the system."
