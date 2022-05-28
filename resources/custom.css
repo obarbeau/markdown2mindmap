@@ -1,2 +1,7 @@
-skinparam defaultFontSize 10
-skinparam defaultFontName Linux Libertine
+<style>
+mindmapDiagram {
+  FontName Linux Libertine
+  FontSize 14
+  FontStyle normal
+}
+</style>

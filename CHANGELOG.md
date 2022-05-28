@@ -14,3 +14,8 @@ This change log follows the conventions of [keepachangelog.com](http://keepachan
 - adds `list-all-fonts` action
 - adds `--style STYLE-FILE` option
 - adds `--with-puml`
+- adds `run-task-enhanced` and refactor `build.clj`
+- corrects Eastwood's linting errors
+- remove aliases that are already provided by `practicalli`
+- add `markdown2mindmap_convert` helper
+- uses `style` instead of `skinparam` for custom styles
