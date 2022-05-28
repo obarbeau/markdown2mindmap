@@ -1,9 +1,10 @@
 (ns build
-  "Use `clj -T:dev:build <var>` for these tasks"
   (:refer-clojure :exclude [test])
   (:require [cawdy.core :as cawdy]
             [clojure.java.io :as io]
+            [clojure.string :as str]
             [clojure.tools.build.api :as b]
+            [clojure.tools.deps.alpha :as t]
             [deps-deploy.deps-deploy :as d]
             [org.corfield.build :as bb]))
 
@@ -11,24 +12,51 @@
 (def version "0.1.0-SNAPSHOT")
 (def main 'markdown2mindmap.core)
 
+(defn run-task-enhanced
+  "Same as seancorfield's `run-task`,
+   except that user deps.edn (linked to practicalli) is also included for additional aliases."
+  [{:keys [java-opts jvm-opts main main-args main-opts] :as opts} aliases]
+  (let [task     (str/join ", " (map name aliases))
+        _        (println "\nRunning task for:" task)
+        basis    (b/create-basis {:user (str (System/getProperty "user.home") "/.clojure/deps.edn")
+                                  :aliases aliases})
+        combined (t/combine-aliases basis aliases)
+        cmds     (b/java-command
+                  {:basis     basis
+                   :java-opts (into (or java-opts (:jvm-opts combined))
+                                    jvm-opts)
+                   :main      (or 'clojure.main main)
+                   :main-args (into (or main-args
+                                        (:main-opts combined)
+                                        ["-m" "cognitect.test-runner"])
+                                    main-opts)})
+        {:keys [exit]} (b/process cmds)]
+    (when-not (zero? exit)
+      (throw (ex-info (str "Task failed for: " task) {}))))
+  opts)
+
+(defn eastwood "Run Eastwood." [opts]
+  (-> opts (run-task-enhanced [:lint/eastwood])))
+
+(defn coverage [opts]
+  (-> opts (run-task-enhanced [:test/cloverage])))
+
 (defn test "Run the tests." [opts]
-  (bb/run-tests opts))
+  (-> opts (run-task-enhanced [:test/kaocha])))
+
+(defn test-watch "Run the tests and watch." [opts]
+  (-> opts (run-task-enhanced [:test/watch])))
 
 (defn ci "Run the CI pipeline of tests (and build the uberjar)." [opts]
   (-> opts
       (assoc :lib lib :version version :main main)
-      (bb/run-tests)
+      (test)
       (bb/clean)
       (bb/uber)))
 
 (def class-dir "target/classes")
 (def jar-file (format "target/%s-%s.jar" (name lib) version))
 (def copy-srcs ["src" "resources"])
-
-(defn clean
-  [params]
-  (b/delete {:path "target"})
-  params)
 
 (defn jar
   [params]
@@ -48,7 +76,7 @@
 
 (defn deploy
   [params]
-  (let [params' (-> params clean jar)]
+  (let [params' (-> params bb/clean jar)]
     (d/deploy {:installer :remote
                :artifact jar-file
                :pom-file (b/pom-path {:lib lib :class-dir class-dir})
@@ -85,7 +113,7 @@
   "First run caddy server: `caddy run --config ./resources/Caddyfile`.
    In another terminal run `clojure -T:dev:build caddy`.
    Finally go to <https://localhost:2015>."
-  [opts]
+  [_opts]
   (let [conn (cawdy/connect "http://localhost:2019")]
     (cawdy/create-server conn :project-documentation
                          {:listen [":2015"]
@@ -95,8 +123,3 @@
                      :files {:root (.getAbsolutePath (io/file "doc"))})
     (println "Please enjoy documentation at https://localhost:2015")))
 
-(defn eastwood "Run Eastwood." [opts]
-  (-> opts (bb/run-task [:eastwood])))
-
-(defn coverage [opts]
-  (-> opts (bb/run-task [:coverage :dev])))
