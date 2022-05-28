@@ -20,9 +20,8 @@
            ;;(str/upper-case (name level))  " "
            ;;"[" (or ?ns-str ?file "?") ":" (or ?line "?") "] - "
            (force msg_)
-           (when-not false
-             (when-let [err ?err]
-               (str enc/system-newline (t/stacktrace err))))))))
+           (when-let [err ?err]
+             (str enc/system-newline (t/stacktrace err)))))))
   :appenders {:spit (appenders/spit-appender {:fname log-file-name})
               :println {:enabled? false}}})
 

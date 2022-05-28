@@ -91,10 +91,10 @@
                     (.getField FileFormat)
                     ;;The nil is there because you are getting a static field,
                     ;; rather than a member field of a particular object.
-                    (#(.get % nil))
+                    (#(.get ^java.lang.reflect.Field % nil))
                     FileFormatOption.)]
     (-> (SourceStringReader. puml2)
-        (.generateImage out format))
+        (.outputImage out format))
     (.close out)))
 
 ;; ------------------------------------
