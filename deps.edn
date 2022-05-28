@@ -6,21 +6,13 @@
         com.taoensso/timbre {:mvn/version "5.1.2"}}
  :aliases
  {:dev {:extra-deps {cawdy/cawdy {:mvn/version "0.3.1"}}
-        :extra-paths ["test" "dev-resources"]}
+        :extra-paths ["dev-resources"]}
 
   :run-m {:main-opts ["-m" "markdown2mindmap.core"]}
 
   :build {:deps {io.github.seancorfield/build-clj
-                 {:git/tag "v0.6.5" :git/sha "972031a"}}
+                 {:git/tag "v0.8.0" :git/sha "9bd8b8a"}}
           :ns-default build}
 
-  ;; Following aliases: `clojure -T:dev:build <alias>`
-  :test {:extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
-                      io.github.cognitect-labs/test-runner
-                      {:git/tag "v0.5.0" :git/sha "48c3c67"}}}
-
-  :eastwood {:extra-deps {jonase/eastwood {:mvn/version "0.5.1"}}
-             :main-opts ["-m" "eastwood.lint" "{:source-paths [\"src\"]}"]}
-
-  :coverage {:extra-deps {cloverage/cloverage {:mvn/version "1.2.1"}}
-             :main-opts ["-m" "cloverage.coverage" "--src-ns-path" "src" "--test-ns-path" "test" "--codecov"]}}}
+  ;; do not add aliases that are already present in `clojure-deps-edn/deps.edn`
+  }}
