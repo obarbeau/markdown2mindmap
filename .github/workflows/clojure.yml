@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Prepare java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2.5.0
         with:
           distribution: "temurin"
           java-version: "17"
@@ -35,14 +35,13 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: practicalli/clojure-deps-edn
-          path: ./.clojure
+          path: practicalli
 
-      - name: Execute clojure code on Linux and MacOS
-        if: ${{ matrix.os != 'windows-latest' }}
-        run: clojure -T:dev:build test
-        shell: bash
+      #- run: echo "HOME=$HOME"
+      - run: mkdir $HOME/.clojure
+      - run: cp practicalli/deps.edn $HOME/.clojure/deps.edn
+      #- run: ls -alhR $HOME
+      #- run: clojure -Sdescribe
 
-      - name: Execute clojure code on Windows
-        if: ${{ matrix.os == 'windows-latest' }}
+      - name: Execute tests on Linux and MacOS
         run: clojure -T:dev:build test
-        shell: powershell

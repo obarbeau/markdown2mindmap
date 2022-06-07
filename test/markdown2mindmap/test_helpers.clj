@@ -12,13 +12,14 @@
         fail  (:fail event)
         error (:error event)
         total (+ (or fail 0) (or error 0))]
-    (when (= :summary atype)
-      (shell/sh "/usr/bin/paplay"
-                (str "./test-resources/"
-                     (if (zero? total)
-                       "system-ready"
-                       "dialog-error")
-                     ".ogg"))))
+    (when-not (System/getenv "GITHUB_ACTIONS")
+      (when (= :summary atype)
+        (shell/sh "/usr/bin/paplay"
+                  (str "./test-resources/"
+                       (if (zero? total)
+                         "system-ready"
+                         "dialog-error")
+                       ".ogg")))))
   event)
 
 (defn delete-log []
