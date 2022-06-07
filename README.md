@@ -1,5 +1,7 @@
-<https://img.shields.io/github/workflow/status/obarbeau/markdown2mindmap/Clojure%20CI>
-<https://img.shields.io/github/languages/top/obarbeau/markdown2mindmap>
+[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
+[![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
+![Clojure CI](https://img.shields.io/github/workflow/status/obarbeau/markdown2mindmap/Clojure%20CI)
+![Languages](https://img.shields.io/github/languages/top/obarbeau/markdown2mindmap)
 
 # Markdown2mindmap
 
