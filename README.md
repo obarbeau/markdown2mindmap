@@ -1,3 +1,6 @@
+<https://img.shields.io/github/workflow/status/obarbeau/markdown2mindmap/Clojure%20CI>
+<https://img.shields.io/github/languages/top/obarbeau/markdown2mindmap>
+
 # Markdown2mindmap
 
 This small application converts Markdown files to Mind maps.
