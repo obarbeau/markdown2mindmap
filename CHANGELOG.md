@@ -21,3 +21,4 @@ This change log follows the conventions of [keepachangelog.com](http://keepachan
 - uses `style` instead of `skinparam` for custom styles.
 - `build` is now an external lib.
 - adds `github_actions_local` with nix-shell.
+- `build` is now on Github.
