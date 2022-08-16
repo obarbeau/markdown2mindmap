@@ -7,7 +7,7 @@
  :aliases
  {:run-m {:main-opts ["-m" "markdown2mindmap.core"]}
 
-  :build {:deps {io.github.obarbeau/build-clj {:git/sha "5fdf20523df14046151bffa6b48e3044ccd9e724"}}
+  :build {:deps {io.github.obarbeau/build-clj {:git/sha "f662bc65e3570735d5012aa9cca665f40f220e8a"}}
           :exec-args {:lib io.github.obarbeau/markdown2mindmap
                       :main-ns markdown2mindmap.core
                       :version "0.1.0-SNAPSHOT"}}}}
