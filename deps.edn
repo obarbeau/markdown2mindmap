@@ -1,18 +1,13 @@
 {:paths ["src" "resources"]
- :deps {org.clojure/clojure {:mvn/version "1.10.3"}
-        net.sourceforge.plantuml/plantuml {:mvn/version "1.2021.14"}
-        com.kiranshila/cybermonday {:mvn/version "0.3.136"}
-        mvxcvi/puget          {:mvn/version "1.3.1"}
-        com.taoensso/timbre {:mvn/version "5.1.2"}}
+ :deps {com.kiranshila/cybermonday        {:mvn/version "0.3.136"}
+        com.taoensso/timbre               {:mvn/version "5.1.2"}
+        mvxcvi/puget                      {:mvn/version "1.3.1"}
+        net.sourceforge.plantuml/plantuml {:mvn/version "1.2022.5"}
+        org.clojure/clojure               {:mvn/version "1.10.3"}}
  :aliases
- {:dev {:extra-deps {cawdy/cawdy {:mvn/version "0.3.1"}}
-        :extra-paths ["dev-resources"]}
+ {:run-m {:main-opts ["-m" "markdown2mindmap.core"]}
 
-  :run-m {:main-opts ["-m" "markdown2mindmap.core"]}
-
-  :build {:deps {io.github.seancorfield/build-clj
-                 {:git/tag "v0.8.0" :git/sha "9bd8b8a"}}
-          :ns-default build}
-
-  ;; do not add aliases that are already present in `clojure-deps-edn/deps.edn`
-  }}
+  :build {:deps {obarbeau.build/obarbeau.build {:local/root "../mybuild"}}
+          :exec-args {:lib io.github.obarbeau/markdown2mindmap
+                      :main-ns markdown2mindmap.core
+                      :version "0.1.0-SNAPSHOT"}}}}

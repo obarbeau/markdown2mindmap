@@ -74,8 +74,8 @@
 (defn- ->puml2
   "Wraps puml text to puml syntax."
   [styles puml]
-  (clojure.string/join
-   "\n"
+  (str/join
+   \newline
    (list
     "@startmindmap"
     styles
@@ -159,7 +159,7 @@
 (defn list-all-fonts
   "Creates an SVG image listing all fonts available on the system."
   [output-file]
-  (create-image! output-file "svg" (clojure.string/join
-                                    "\n" ["@startuml"
-                                          "listfonts"
-                                          "@enduml"])))
+  (create-image! output-file "svg" (str/join
+                                    \newline ["@startuml"
+                                              "listfonts"
+                                              "@enduml"])))
