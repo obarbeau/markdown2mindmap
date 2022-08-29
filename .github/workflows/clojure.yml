@@ -28,7 +28,7 @@ jobs:
           java-version: "17"
 
       - name: Install clojure tools
-        uses: DeLaGuardo/setup-clojure@5.1
+        uses: DeLaGuardo/setup-clojure@9.5
         with:
           cli: latest
           # (optional) To avoid rate limit errors please provide github token
