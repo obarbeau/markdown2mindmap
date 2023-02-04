@@ -22,3 +22,4 @@ This change log follows the conventions of [keepachangelog.com](http://keepachan
 - `build` is now an external lib.
 - adds `github_actions_local` with nix-shell.
 - `build` is now on Github.
+- `puml` files were missing plantuml directives

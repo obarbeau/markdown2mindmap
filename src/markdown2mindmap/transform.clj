@@ -71,7 +71,7 @@
     (prewalk (partial walk-fn result) hiccup-data)
     @result))
 
-(defn- ->puml2
+(defn ->puml2
   "Wraps puml text to puml syntax."
   [styles puml]
   (str/join
@@ -122,14 +122,14 @@
        reverse
        (str/join "\n")))
 
-(defn hiccup->puml-file
-  "Generates a puml file from an hiccup file."
-  [input-file output-file]
-  (->> input-file
-       slurp
-       edn/read-string
-       hiccup->puml
-       (spit output-file)))
+#_(defn hiccup->puml-file
+    "Generates a puml file from an hiccup file."
+    [input-file output-file]
+    (->> input-file
+         slurp
+         edn/read-string
+         hiccup->puml
+         (spit output-file)))
 
 (defn md->mindmap
   "Generates an mindmap image (with the `type` format) from a markdown file."

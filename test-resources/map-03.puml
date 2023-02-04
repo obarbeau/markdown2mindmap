@@ -1,5 +1,8 @@
+@startmindmap
+
 * Root
 **_ listitem1
 ***_ listitem1.1
 **_ listitem2
 ***_ listitem2.1
+@endmindmap

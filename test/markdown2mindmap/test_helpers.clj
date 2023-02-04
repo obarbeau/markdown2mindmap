@@ -56,4 +56,5 @@
 
 (defn hiccup-file->puml [number]
   (->> (read-hiccup number)
-       m2mtransform/hiccup->puml))
+       m2mtransform/hiccup->puml
+       (m2mtransform/->puml2 "")))
