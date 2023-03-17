@@ -1,0 +1,858 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../enter/">
+      
+      
+        <link rel="next" href="../log/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
+    
+    
+      
+        <title>markdown2mindmap.exit - Markdown2mindmap</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.c4a75a56.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#markdown2mindmapexit" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Markdown2mindmap" class="md-header__button md-logo" aria-label="Markdown2mindmap" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Markdown2mindmap
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              markdown2mindmap.exit
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/obarbeau/markdown2mindmap" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    github
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Markdown2mindmap" class="md-nav__button md-logo" aria-label="Markdown2mindmap" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Markdown2mindmap
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/obarbeau/markdown2mindmap" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Markdown2mindmap
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Markdown2mindmap
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/" class="md-nav__link">
+        markdown2mindmap.core
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../enter/" class="md-nav__link">
+        markdown2mindmap.enter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          markdown2mindmap.exit
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        markdown2mindmap.exit
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#last-simple-child" class="md-nav__link">
+    last-simple-child?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#last-nested-child" class="md-nav__link">
+    last-nested-child?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#last-child" class="md-nav__link">
+    last-child?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#now-outside" class="md-nav__link">
+    now-outside?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-and-last" class="md-nav__link">
+    inside-and-last?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit" class="md-nav__link">
+    exit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-if-required" class="md-nav__link">
+    exit-if-required
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-heading" class="md-nav__link">
+    exit-heading
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-ol-ul" class="md-nav__link">
+    exit-ol-ul
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-li" class="md-nav__link">
+    exit-li
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-p" class="md-nav__link">
+    exit-p
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apply-modifier" class="md-nav__link">
+    apply-modifier
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-string" class="md-nav__link">
+    process-string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#through-slb" class="md-nav__link">
+    through-slb
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log/" class="md-nav__link">
+        markdown2mindmap.log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transform/" class="md-nav__link">
+        markdown2mindmap.transform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#last-simple-child" class="md-nav__link">
+    last-simple-child?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#last-nested-child" class="md-nav__link">
+    last-nested-child?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#last-child" class="md-nav__link">
+    last-child?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#now-outside" class="md-nav__link">
+    now-outside?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inside-and-last" class="md-nav__link">
+    inside-and-last?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit" class="md-nav__link">
+    exit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-if-required" class="md-nav__link">
+    exit-if-required
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-heading" class="md-nav__link">
+    exit-heading
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-ol-ul" class="md-nav__link">
+    exit-ol-ul
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-li" class="md-nav__link">
+    exit-li
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-p" class="md-nav__link">
+    exit-p
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apply-modifier" class="md-nav__link">
+    apply-modifier
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-string" class="md-nav__link">
+    process-string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#through-slb" class="md-nav__link">
+    through-slb
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="markdown2mindmapexit">markdown2mindmap.exit<a class="headerlink" href="#markdown2mindmapexit" title="Permanent link">&para;</a></h1>
+<details class="tip">
+<summary>(<code>ns</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">ns </span><span class="nv">markdown2mindmap.exit</span>
+<span class="w">  </span><span class="p">(</span><span class="ss">:require</span><span class="w"> </span><span class="p">[</span><span class="nv">markdown2mindmap.log</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">m2mlog</span><span class="p">]</span>
+<span class="w">            </span><span class="p">[</span><span class="nv">taoensso.timbre</span><span class="w"> </span><span class="ss">:as</span><span class="w"> </span><span class="nv">t</span><span class="w"> </span><span class="ss">:refer</span><span class="w"> </span><span class="p">[</span><span class="nv">info</span><span class="p">]]))</span>
+</code></pre></div>
+</details>
+<h2 id="last-simple-child"><code>last-simple-child?</code><a class="headerlink" href="#last-simple-child" title="Permanent link">&para;</a></h2>
+<p>Returns a vector with 2 values:
+   1. True if it is the last child of a non-nestable element.
+   2. new number of children for this non-nestable element or zero.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">last-simple-child?</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">children</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">new-children</span><span class="w"> </span><span class="p">(</span><span class="nb">dec </span><span class="nv">children</span><span class="p">)]</span>
+<span class="w">    </span><span class="p">[(</span><span class="nb">zero? </span><span class="nv">new-children</span><span class="p">)</span><span class="w"> </span><span class="nv">new-children</span><span class="p">]))</span>
+</code></pre></div>
+</details>
+<h2 id="last-nested-child"><code>last-nested-child?</code><a class="headerlink" href="#last-nested-child" title="Permanent link">&para;</a></h2>
+<p>Returns a vector with 2 values:
+   1. is it the last child of a nestable element (like ol/ul)?
+   2. rest of children or nil.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">last-nested-child?</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">children</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[[</span><span class="nv">child1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nv">rest</span><span class="p">]</span><span class="w"> </span><span class="nv">children</span>
+<span class="w">        </span><span class="nv">child1dec</span><span class="w"> </span><span class="p">(</span><span class="nb">dec </span><span class="p">(</span><span class="nb">or </span><span class="nv">child1</span><span class="w"> </span><span class="mi">1</span><span class="p">))]</span>
+<span class="w">    </span><span class="p">[(</span><span class="nb">zero? </span><span class="nv">child1dec</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">zero? </span><span class="nv">child1dec</span><span class="p">)</span>
+<span class="w">                         </span><span class="nv">rest</span>
+<span class="w">                         </span><span class="p">(</span><span class="nb">cons </span><span class="nv">child1dec</span><span class="w"> </span><span class="nv">rest</span><span class="p">))]))</span>
+</code></pre></div>
+</details>
+<h2 id="last-child"><code>last-child?</code><a class="headerlink" href="#last-child" title="Permanent link">&para;</a></h2>
+<p>Returns a vector with 2 values:
+   1. is it the last child of the element of type <code>ctype</code>.
+   2. the new children number/list or nil.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">last-child?</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="w"> </span><span class="nv">ctype</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nb">children </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="o">@</span><span class="nv">result</span><span class="w"> </span><span class="p">[</span><span class="nv">ctype</span><span class="w"> </span><span class="ss">:children</span><span class="p">])</span>
+<span class="w">        </span><span class="p">[</span><span class="nv">last?</span><span class="w"> </span><span class="nv">new-children</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">number?</span><span class="w"> </span><span class="nv">children</span><span class="p">)</span>
+<span class="w">                               </span><span class="p">(</span><span class="nf">last-simple-child?</span><span class="w"> </span><span class="nv">children</span><span class="p">)</span>
+<span class="w">                               </span><span class="p">(</span><span class="nf">last-nested-child?</span><span class="w"> </span><span class="nv">children</span><span class="p">))]</span>
+<span class="w">    </span><span class="p">[</span><span class="nv">last?</span><span class="w"> </span><span class="nv">new-children</span><span class="p">]))</span>
+</code></pre></div>
+</details>
+<h2 id="now-outside"><code>now-outside?</code><a class="headerlink" href="#now-outside" title="Permanent link">&para;</a></h2>
+<p>Returns true if we are now completely outside of this (nested) element?</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">now-outside?</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="w"> </span><span class="nv">ctype</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[[</span><span class="nv">_last?</span><span class="w"> </span><span class="nv">new-children</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="nf">last-child?</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">ctype</span><span class="p">)]</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">or </span><span class="p">(</span><span class="nb">nil? </span><span class="nv">new-children</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="nb">and </span><span class="p">(</span><span class="nf">number?</span><span class="w"> </span><span class="nv">new-children</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nb">zero? </span><span class="nv">new-children</span><span class="p">)))))</span>
+</code></pre></div>
+</details>
+<h2 id="inside-and-last"><code>inside-and-last?</code><a class="headerlink" href="#inside-and-last" title="Permanent link">&para;</a></h2>
+<p>If we are we inside a <code>ctype</code> element, returns <code>last-child?</code> answer,
+  otherwise nil.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">inside-and-last?</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="w"> </span><span class="nv">ctype</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="o">@</span><span class="nv">result</span><span class="w"> </span><span class="p">[</span><span class="nv">ctype</span><span class="w"> </span><span class="ss">:inside</span><span class="p">])</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">last-child?</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">ctype</span><span class="p">)))</span>
+</code></pre></div>
+</details>
+<hr />
+<h2 id="exit"><code>exit</code><a class="headerlink" href="#exit" title="Permanent link">&para;</a></h2>
+<p>Set <code>inside</code> flag to false
+   only if this was the last child of all (nested) elements.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">exit</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="w"> </span><span class="nv">ctype</span><span class="w"> </span><span class="nv">now-outside?</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">when </span><span class="nv">now-outside?</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">assoc-in</span><span class="w"> </span><span class="p">[</span><span class="nv">ctype</span><span class="w"> </span><span class="ss">:inside</span><span class="p">]</span><span class="w"> </span><span class="nv">false</span><span class="p">))</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">info</span><span class="w"> </span><span class="p">(</span><span class="nf">t/color-str</span><span class="w"> </span><span class="ss">:purple</span><span class="w"> </span><span class="p">(</span><span class="nb">str </span><span class="s">&quot;&lt;&lt;exit-&quot;</span><span class="w"> </span><span class="p">(</span><span class="nb">name </span><span class="nv">ctype</span><span class="p">)))</span>
+<span class="w">        </span><span class="p">(</span><span class="nb">select-keys </span><span class="o">@</span><span class="nv">result</span><span class="w"> </span><span class="nv">m2mlog/log-keys</span><span class="p">)))</span>
+</code></pre></div>
+</details>
+<h2 id="exit-if-required"><code>exit-if-required</code><a class="headerlink" href="#exit-if-required" title="Permanent link">&para;</a></h2>
+<p>If we are we inside a <code>ctype</code> element, sets the new number of children.
+  If it wad the last child, execute the <code>exit-fn</code>.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">exit-if-required</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="w"> </span><span class="nv">ctype</span><span class="w"> </span><span class="nv">exit-fn</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">when-let </span><span class="p">[[</span><span class="nv">last?</span><span class="w"> </span><span class="nv">new-children</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="nf">inside-and-last?</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">ctype</span><span class="p">)]</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">assoc-in</span><span class="w"> </span><span class="p">[</span><span class="nv">ctype</span><span class="w"> </span><span class="ss">:children</span><span class="p">]</span><span class="w"> </span><span class="nv">new-children</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nb">when </span><span class="nv">last?</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">exit-fn</span><span class="w"> </span><span class="nv">result</span><span class="p">))))</span>
+</code></pre></div>
+</details>
+<h2 id="exit-heading"><code>exit-heading</code><a class="headerlink" href="#exit-heading" title="Permanent link">&para;</a></h2>
+<p>Exit a heading element. Conj current buffer to puml text.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">exit-heading</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">text</span><span class="w"> </span><span class="p">(</span><span class="nb">-&gt; </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="o">@</span><span class="nv">result</span><span class="w"> </span><span class="p">[</span><span class="ss">:heading</span><span class="w"> </span><span class="ss">:level</span><span class="p">])</span>
+<span class="w">                 </span><span class="p">(</span><span class="nb">repeat </span><span class="s">&quot;*&quot;</span><span class="p">)</span>
+<span class="w">                 </span><span class="p">(</span><span class="nb">concat </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="p">(</span><span class="ss">:buffer</span><span class="w"> </span><span class="o">@</span><span class="nv">result</span><span class="p">))</span>
+<span class="w">                 </span><span class="p">(</span><span class="o">#</span><span class="p">(</span><span class="nb">apply str </span><span class="nv">%</span><span class="p">)))]</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">update</span><span class="w"> </span><span class="ss">:puml</span><span class="w"> </span><span class="nb">conj </span><span class="nv">text</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nb">assoc </span><span class="ss">:buffer</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">))</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">exit</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ss">:heading</span><span class="w"> </span><span class="nv">true</span><span class="p">))</span>
+</code></pre></div>
+</details>
+<h2 id="exit-ol-ul"><code>exit-ol-ul</code><a class="headerlink" href="#exit-ol-ul" title="Permanent link">&para;</a></h2>
+<p>Exit a list, ordered or not.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">exit-ol-ul</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">exit</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ss">:ol-ul</span><span class="w"> </span><span class="p">(</span><span class="nf">now-outside?</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ss">:ol-ul</span><span class="p">)))</span>
+</code></pre></div>
+</details>
+<h2 id="exit-li"><code>exit-li</code><a class="headerlink" href="#exit-li" title="Permanent link">&para;</a></h2>
+<p>Exit a list element.
+  Use the level of the list added to the level of containing heading.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">exit-li</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">level-heading</span><span class="w"> </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="o">@</span><span class="nv">result</span><span class="w"> </span><span class="p">[</span><span class="ss">:heading</span><span class="w"> </span><span class="ss">:level</span><span class="p">])</span>
+<span class="w">        </span><span class="nv">level-ol-ul</span><span class="w"> </span><span class="p">(</span><span class="nb">count </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="o">@</span><span class="nv">result</span><span class="w"> </span><span class="p">[</span><span class="ss">:ol-ul</span><span class="w"> </span><span class="ss">:children</span><span class="p">]))</span>
+<span class="w">        </span><span class="nv">level-total</span><span class="w"> </span><span class="p">(</span><span class="nb">+ </span><span class="nv">level-heading</span><span class="w"> </span><span class="nv">level-ol-ul</span><span class="p">)</span>
+<span class="w">        </span><span class="nv">text</span><span class="w"> </span><span class="p">(</span><span class="nb">-&gt; </span><span class="p">(</span><span class="nb">repeat </span><span class="nv">level-total</span><span class="w">  </span><span class="s">&quot;*&quot;</span><span class="p">)</span>
+<span class="w">                 </span><span class="p">(</span><span class="nb">concat </span><span class="w"> </span><span class="s">&quot;_ &quot;</span><span class="w"> </span><span class="p">(</span><span class="ss">:buffer</span><span class="w"> </span><span class="o">@</span><span class="nv">result</span><span class="p">))</span>
+<span class="w">                 </span><span class="p">(</span><span class="o">#</span><span class="p">(</span><span class="nb">apply str </span><span class="nv">%</span><span class="p">)))]</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">update</span><span class="w"> </span><span class="ss">:puml</span><span class="w"> </span><span class="nb">conj </span><span class="nv">text</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nb">assoc </span><span class="ss">:buffer</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">exit</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ss">:li</span><span class="w"> </span><span class="nv">true</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">exit-if-required</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ss">:ol-ul</span><span class="w"> </span><span class="nv">exit-ol-ul</span><span class="p">)))</span>
+</code></pre></div>
+</details>
+<h2 id="exit-p"><code>exit-p</code><a class="headerlink" href="#exit-p" title="Permanent link">&para;</a></h2>
+<p>Exit a paragraph. The buffer is deleted if it has not been used.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">exit-p</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">exit</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ss">:p</span><span class="w"> </span><span class="nv">true</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">exit-if-required</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ss">:li</span><span class="w"> </span><span class="nv">exit-li</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nb">assoc </span><span class="ss">:buffer</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">))</span>
+</code></pre></div>
+</details>
+<h2 id="apply-modifier"><code>apply-modifier</code><a class="headerlink" href="#apply-modifier" title="Permanent link">&para;</a></h2>
+<p>Applies the current modifier to the string.</p>
+<details class="tip">
+<summary>(<code>defn-</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn- </span><span class="nv">apply-modifier</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">modifier</span><span class="w"> </span><span class="p">(</span><span class="ss">:modifier</span><span class="w"> </span><span class="o">@</span><span class="nv">result</span><span class="p">)]</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nb">assoc </span><span class="ss">:modifier</span><span class="w"> </span><span class="nv">nil</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">case</span><span class="w"> </span><span class="nv">modifier</span>
+<span class="w">      </span><span class="ss">:em</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;&lt;i&gt;%s&lt;/i&gt;&quot;</span><span class="w"> </span><span class="nv">s</span><span class="p">)</span>
+<span class="w">      </span><span class="ss">:strong</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;&lt;b&gt;%s&lt;/b&gt;&quot;</span><span class="w"> </span><span class="nv">s</span><span class="p">)</span>
+<span class="w">      </span><span class="ss">:s</span><span class="w"> </span><span class="p">(</span><span class="nf">format</span><span class="w"> </span><span class="s">&quot;&lt;s&gt;%s&lt;/s&gt;&quot;</span><span class="w"> </span><span class="nv">s</span><span class="p">)</span>
+<span class="w">      </span><span class="nv">s</span><span class="p">)))</span>
+</code></pre></div>
+</details>
+<hr />
+<h2 id="process-string"><code>process-string</code><a class="headerlink" href="#process-string" title="Permanent link">&para;</a></h2>
+<p>If the <code>ignore-string</code> flag is not true,
+  adds this string to the buffer, applying eventual modifier.
+  Then checks if this string was the last child of a heading or paragraph
+  and exit them if required.</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">process-string</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">s</span><span class="p">)</span>
+</code></pre></div>
+<details class="tip">
+<summary>(<code>defn</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">process-string</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="ss">:ignore-string</span><span class="w"> </span><span class="o">@</span><span class="nv">result</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">info</span><span class="w"> </span><span class="s">&quot;ignore string: &quot;</span><span class="w"> </span><span class="nv">s</span><span class="p">)</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">do</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">update-in</span><span class="w"> </span><span class="p">[</span><span class="ss">:buffer</span><span class="p">]</span><span class="w"> </span><span class="nb">str </span><span class="p">(</span><span class="nf">apply-modifier</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">s</span><span class="p">))</span>
+<span class="w">      </span><span class="p">(</span><span class="nf">info</span><span class="w"> </span><span class="p">(</span><span class="nf">t/color-str</span><span class="w"> </span><span class="ss">:green</span><span class="w"> </span><span class="s">&quot;&gt;&gt;process-string&quot;</span><span class="p">)</span><span class="w"> </span><span class="nv">s</span><span class="p">)))</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nb">assoc </span><span class="ss">:ignore-string</span><span class="w"> </span><span class="nv">false</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">exit-if-required</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ss">:heading</span><span class="w"> </span><span class="nv">exit-heading</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">exit-if-required</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ss">:p</span><span class="w"> </span><span class="nv">exit-p</span><span class="p">)</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">info</span><span class="w"> </span><span class="p">(</span><span class="nf">t/color-str</span><span class="w"> </span><span class="ss">:green</span><span class="w"> </span><span class="s">&quot;&lt;&lt;process-string&quot;</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;\n &quot;</span>
+<span class="w">        </span><span class="p">(</span><span class="nb">select-keys </span><span class="o">@</span><span class="nv">result</span><span class="w"> </span><span class="nv">m2mlog/log-keys</span><span class="p">))</span>
+<span class="w">  </span><span class="nv">s</span><span class="p">)</span>
+</code></pre></div>
+</details>
+<h2 id="through-slb"><code>through-slb</code><a class="headerlink" href="#through-slb" title="Permanent link">&para;</a></h2>
+<p>Pass through a soft line break. Set the <code>ignore-string</code> flag to true.
+  Then checks if this element was the last child of a paragraph
+  and exit if required.</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="nf">through-slb</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">x</span><span class="p">)</span>
+</code></pre></div>
+<details class="tip">
+<summary>(<code>defn</code>)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">defn </span><span class="nv">through-slb</span>
+<span class="w">  </span><span class="p">[</span><span class="nv">result</span><span class="w"> </span><span class="nv">x</span><span class="p">]</span>
+<span class="w">  </span><span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nf">get-in</span><span class="w"> </span><span class="o">@</span><span class="nv">result</span><span class="w"> </span><span class="p">[</span><span class="ss">:ol-ul</span><span class="w"> </span><span class="ss">:inside</span><span class="p">])</span>
+<span class="w">    </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nb">assoc </span><span class="ss">:ignore-string</span><span class="w"> </span><span class="nv">true</span><span class="p">))</span>
+<span class="w">  </span><span class="p">(</span><span class="nf">exit-if-required</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ss">:p</span><span class="w"> </span><span class="nv">exit-p</span><span class="p">)</span>
+<span class="w">  </span><span class="nv">x</span><span class="p">)</span>
+</code></pre></div>
+</details>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.efa0ade1.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
