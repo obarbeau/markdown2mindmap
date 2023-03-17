@@ -7,7 +7,9 @@
  :aliases
  {:dev {;; for the profilers
         :jvm-opts ["-Dproject-name=markdown2mindmap.core"]
-        :extra-deps {autodoc/autodoc {:local/root "./autodoc.jar"}}}
+        :extra-deps {autodoc/autodoc {:local/root "./autodoc.jar"}
+                     materiala/materiala {:git/url "https://github.com/davidpham87/materiala/"
+                                          :sha "e6197fdd1b48367aae2f3c3bc2fe51784f7e8c15"}}}
   :run-m {:main-opts ["-m" "markdown2mindmap.core"]}
 
   :build {:deps {io.github.obarbeau/build-clj

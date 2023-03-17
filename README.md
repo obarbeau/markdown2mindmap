@@ -28,10 +28,12 @@ Download from https://github.com/obarbeau/markdown2mindmap
 
 ## Usage
 
+FIXME: update this part
+
 This project uses the `seancorfield/build-clj` library and `build.clj` file.
 Use `clj -T:dev:build <task-name>` for all these tasks.
 
-Run the application: see [usage](src/markdown2mindmap/core.clj#L15-L26)
+Run the application: see [usage](/src/markdown2mindmap/core.clj#L15-L26)
 
 Run the project's tests
 (this will generate test images in the output directory):

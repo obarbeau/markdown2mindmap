@@ -1,0 +1,32 @@
+site_name: Markdown2mindmap
+repo_url: https://github.com/obarbeau/markdown2mindmap
+repo_name: github
+docs_dir: docs
+site_dir: site
+strict: true
+# serve local
+dev_addr: 127.0.0.1:4488
+
+theme:
+  name: material
+  # logo: images/logo.png
+  palette:
+    primary: blue
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.details
+
+extra_javascript: # Math
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML
+
+plugins:
+  - search # necessary for search to work
+  - awesome-pages # automatic navigation

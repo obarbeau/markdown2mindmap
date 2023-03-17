@@ -1,0 +1,6 @@
+mkdocs-material
+mkdocs-awesome-pages-plugin
+
+# to avoid a problem with rendering nested lists,
+# and Python-Markdown which imposes 4 spaces for the following levels
+mdx_truly_sane_lists
