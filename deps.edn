@@ -3,12 +3,28 @@
         com.taoensso/timbre               {:mvn/version "5.1.2"}
         mvxcvi/puget                      {:mvn/version "1.3.1"}
         net.sourceforge.plantuml/plantuml {:mvn/version "1.2022.5"}
-        org.clojure/clojure               {:mvn/version "1.10.3"}}
+        org.clojure/clojure               {:mvn/version "1.11.1"}}
  :aliases
- {:run-m {:main-opts ["-m" "markdown2mindmap.core"]}
+ {:dev {;; for the profilers
+        :jvm-opts ["-Dproject-name=markdown2mindmap.core"]
+        :extra-deps {autodoc/autodoc {:local/root "./autodoc.jar"}}}
+  :run-m {:main-opts ["-m" "markdown2mindmap.core"]}
 
   :build {:deps {io.github.obarbeau/build-clj
                  {:git/sha "bb7d3f12381d84b9e230d8497d4d09b9fd6971ab"}}
           :exec-args {:lib io.github.obarbeau/markdown2mindmap
                       :main-ns markdown2mindmap.core
-                      :version "0.1.0-SNAPSHOT"}}}}
+                      :version "0.1.0-SNAPSHOT"}}
+
+  ;; clojure -X:env/test:flow-doc
+  :flow-doc {:extra-deps {com.github.jpmonettas/flow-storm-dbg {:mvn/version "3.3.320"}}
+             :exec-fn flow-storm.api/cli-doc
+             :exec-args {:result-name "autodoc"
+                         :print-unsampled? true
+                         :require-before #{"markdown2mindmap.core-test"}
+                         :instrument-ns #{"markdown2mindmap"}
+                         :fn-symb clojure.test/run-all-tests
+                         :fn-args []
+                         :examples-pprint? true
+                         :examples-print-length 5
+                         :examples-print-level 10}}}}
