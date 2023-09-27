@@ -4,7 +4,7 @@ function markdown2mindmap_convert() {
   local input_file=$1
   local output_dir=$2
   cd $CLJ/markdown2mindmap
-  clojure -M:run-m convert --style resources/custom.css \
+  clojure -M:run-m convert --with-puml --style resources/custom.css \
     --type svg $input_file $output_dir
 }
 
