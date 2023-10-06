@@ -23,3 +23,4 @@ This change log follows the conventions of [keepachangelog.com](http://keepachan
 - adds `github_actions_local` with nix-shell.
 - `build` is now on Github.
 - `puml` files were missing plantuml directives
+- process complete directory; Both SVG and PUML output are optional
