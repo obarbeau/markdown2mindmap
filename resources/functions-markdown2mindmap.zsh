@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 function markdown2mindmap_convert() {
+  echo "Use BBK!"
   local input_file=$1
   local output_dir=$2
   cd $CLJ/markdown2mindmap

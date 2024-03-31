@@ -9,6 +9,7 @@
 
 (t/merge-config!
  {:timestamp-opts  {:pattern ""}
+  :min-level :warn
   :output-fn
   (fn  ([data]
         (let [{:keys [level ?err #_vargs msg_ ?ns-str ?file hostname_

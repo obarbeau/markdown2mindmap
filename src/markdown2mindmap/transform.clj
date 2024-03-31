@@ -152,10 +152,15 @@
                     slurp
                     md->hiccup
                     hiccup->puml
-                    (->puml2 styles))]
+                    (->puml2 styles))
+          previous-content (and (.exists (io/as-file output-puml))
+                                (slurp output-puml))]
       (when (or with-puml puml-output-dir)
-        (spit output-puml puml)
-        (printf "generated %s\n" output-puml))
+        (if (= puml previous-content)
+          (printf "unchanged file %s\n" output-puml)
+          (do
+            (spit output-puml puml)
+            (printf "generated %s\n" output-puml))))
       (when (or with-svg svg-output-dir)
         (create-image! output-img type puml)))))
 
