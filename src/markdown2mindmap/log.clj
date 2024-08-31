@@ -9,7 +9,7 @@
 
 (t/merge-config!
  {:timestamp-opts  {:pattern ""}
-  :min-level :warn
+  :min-level :debug
   :output-fn
   (fn  ([data]
         (let [{:keys [level ?err #_vargs msg_ ?ns-str ?file hostname_
@@ -26,6 +26,6 @@
   :appenders {:spit (appenders/spit-appender {:fname log-file-name})
               :println {:enabled? false}}})
 
-;;(info t/*config*)
+#_(clojure.pprint/pprint t/*config*)
 
 ;; ------------------------------------

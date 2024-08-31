@@ -7,7 +7,7 @@
 (deftest a-test
   (mth/delete-log)
   (mth/delete-output-dir)
-  (doseq [n (range 1 8)]
+  (doseq [n (range 1 9)]
     (infof "--- Start of test %d ---" n)
     (testing "->hiccup"
       (is (=  (mth/read-hiccup n)

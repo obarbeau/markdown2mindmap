@@ -25,3 +25,4 @@ This change log follows the conventions of [keepachangelog.com](http://keepachan
 - `puml` files were missing plantuml directives
 - process complete directory; Both SVG and PUML output are optional
 - do not generate unchanged file
+- changed extension to 3md; updated deps

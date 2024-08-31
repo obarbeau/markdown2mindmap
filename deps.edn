@@ -1,11 +1,11 @@
 {:paths ["src" "resources"]
- :deps {com.kiranshila/cybermonday        {:mvn/version "0.6.213"}
-        com.taoensso/timbre               {:mvn/version "5.1.2"}
-        mvxcvi/puget                      {:mvn/version "1.3.1"}
-        net.sourceforge.plantuml/plantuml {:mvn/version "1.2023.6"}
-        org.clojure/clojure               {:mvn/version "1.11.1"}
+ :deps {com.kiranshila/cybermonday        {:mvn/version "0.6.215"}
+        com.taoensso/timbre               {:mvn/version "6.5.0"}
+        mvxcvi/puget                      {:mvn/version "1.3.4"}
+        net.sourceforge.plantuml/plantuml {:mvn/version "1.2024.6"}
+        org.clojure/clojure               {:mvn/version "1.11.2"}
        ;; required when launching with BB
-        org.clojure/tools.cli             {:mvn/version "1.0.219"}}
+        org.clojure/tools.cli             {:mvn/version "1.1.230"}}
  :aliases
  {:dev {;; for the profilers
         :jvm-opts ["-Dproject-name=markdown2mindmap.core"]
@@ -15,13 +15,13 @@
   :run-m {:main-opts ["-m" "markdown2mindmap.core"]}
 
   :build {:deps {io.github.obarbeau/build-clj
-                 {:git/sha "bb7d3f12381d84b9e230d8497d4d09b9fd6971ab"}}
+                 {:local/root "../tools/build-clj"} #_{:git/sha "bb7d3f12381d84b9e230d8497d4d09b9fd6971ab"}}
           :exec-args {:lib io.github.obarbeau/markdown2mindmap
                       :main-ns markdown2mindmap.core
                       :version "0.1.0-SNAPSHOT"}}
 
   ;; clojure -X:env/test:flow-doc
-  :flow-doc {:extra-deps {com.github.jpmonettas/flow-storm-dbg {:mvn/version "3.3.320"}}
+  :flow-doc {:extra-deps {com.github.jpmonettas/flow-storm-dbg {:mvn/version "3.7.5"}}
              :exec-fn flow-storm.api/cli-doc
              :exec-args {:result-name "autodoc"
                          :print-unsampled? true

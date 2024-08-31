@@ -12,6 +12,8 @@
                                      FileFormatOption
                                      FileFormat)))
 
+;; TODO cf https://github.com/jimmyhmiller/PlayGround/blob/master/markdown-to-blog/src/markdown_to_blog/core.clj
+
 (defn- walk-fn
   [result x]
   (cond
@@ -135,14 +137,14 @@
   "Generates an mindmap image (with the `type` format) from a markdown file or dir and/or a puml file."
   [input-file-or-dir {:keys [type style with-svg svg-output-dir with-puml puml-output-dir]}]
   (doseq [input-file (file-seq (io/file input-file-or-dir))
-          :when (str/ends-with? input-file ".mm.md")
+          :when (str/ends-with? input-file ".3md")
           :let [svg-output-directory (or svg-output-dir (.getParent input-file))
                 puml-output-directory (or puml-output-dir (.getParent input-file))]]
-    (let [;; keeps only filename without 'md' extension
-          output-name (str/replace (.getName input-file) #"(?i)\.md" "")
+    (let [;; keeps only filename without '3md' extension
+          output-name (str/replace (.getName input-file) #"(?i)\.3md" "")
           output-img (-> output-name
                          ;; adds selected extension
-                         (str "." type)
+                         (str type)
                          (#(io/file svg-output-directory %)))
           output-puml (-> output-name
                           (str ".puml")

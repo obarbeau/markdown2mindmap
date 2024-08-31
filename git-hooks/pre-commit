@@ -11,7 +11,7 @@ do_exit() {
 # of the 'src' directory into the 'doc' directory
 
 # find last modified file in the doc directory
-local latest_doc_file=$(find doc -type f -exec stat -c '%Y %n' {} \; 2>/dev/null | sort --numeric-sort --reverse | head -1 | cut -d' ' -f2)
+local latest_doc_file=$(find codox -type f -exec stat -c '%Y %n' {} \; 2>/dev/null | sort --numeric-sort --reverse | head -1 | cut -d' ' -f2)
 
 # block if any file in src is more recent
 if [[ $(find src -newer $latest_doc_file -print) ]]; then

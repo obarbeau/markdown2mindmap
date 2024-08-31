@@ -1,5 +1,7 @@
 # Todo
 
+- investigate Coogle
+
 - _Front matter_:
   If necessary, manage the file options in the Front matter, why not in TOML
 
@@ -15,7 +17,7 @@
 
 - _mkdocs_:
   mkdocs plugin <https://www.mkdocs.org/dev-guide/plugins>
-  to automatically generate mindmaps (`.mm.md`).
+  to automatically generate mindmaps (`.3md`).
   `$HOME/.local/lib/python3.8/site-packages`
 
 - _hiccup_:
