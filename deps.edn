@@ -15,7 +15,8 @@
   :run-m {:main-opts ["-m" "markdown2mindmap.core"]}
 
   :build {:deps {io.github.obarbeau/build-clj
-                 {:local/root "../tools/build-clj"} #_{:git/sha "bb7d3f12381d84b9e230d8497d4d09b9fd6971ab"}}
+                 #_{:local/root "../tools/build-clj"}
+                 {:git/sha "7ea324d94c5cde5818ad56b7b266f49cc4560f57"}}
           :exec-args {:lib io.github.obarbeau/markdown2mindmap
                       :main-ns markdown2mindmap.core
                       :version "0.1.0-SNAPSHOT"}}

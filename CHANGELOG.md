@@ -28,3 +28,4 @@ This change log follows the conventions of [keepachangelog.com](http://keepachan
 - changed extension to 3md; updated deps
 - `markdown2mindmap_convert` helper removed.
 - update deps, point out the bug to be corrected
+- update build part

@@ -44,4 +44,4 @@ jobs:
         run: mkdir -p $XDG_CONFIG_HOME/clojure && cp practicalli/deps.edn $XDG_CONFIG_HOME/clojure/deps.edn
 
       - name: Execute tests on Linux and MacOS
-        run: clojure -T:build obarbeau.build/test
+        run: clojure -T:build org.corfield.build/test
