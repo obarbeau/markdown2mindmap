@@ -27,6 +27,9 @@
         :validate [#(#{"svg" "png"} %) "Either 'svg' or 'png' format."]]
        [nil "--style STYLE-FILE" "Apply custom style to mindmap"]
        [nil "--with-puml" "Generate intermediate puml file"]
+       [nil "--with-svg" "Generate SVG file"]
+       [nil "--svg-output-dir SVG-OUTPUT-DIR" "Output directory for SVG. Implies --with-svg. Defaults to same dir as every input file"]
+       [nil "--puml-output-dir PUML-OUTPUT-DIR" "Output directory for PUML. Implies --with-puml. Defaults to same dir as every input file"]
        ["-h" "--help"]])
     ```
 
@@ -41,7 +44,8 @@
     ```clojure
     (defn usage [options-summary]
       (->> ["Converts Markdown files to Mind maps."
-            "Usage: markdown2mindmap [options] convert <input-file> <output-dir>"
+            "Usage: markdown2mindmap [options] convert <input-file>"
+            "       markdown2mindmap [options] convert <input-dir>"
             "       markdown2mindmap list-all-fonts [output-file]"
             "Options:"
             options-summary
@@ -98,8 +102,8 @@ Validate command line arguments. Either return a map indicating the program
     (defn validate-args
       [args]
       (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)
-            nbargs (count arguments)
-            [action & restargs] arguments]
+            [action & restargs] arguments
+            nbargs (count restargs)]
         (cond
           ;; help => exit OK with usage summary
           (:help options)
@@ -109,9 +113,9 @@ Validate command line arguments. Either return a map indicating the program
           {:exit-message (error-msg errors)}
           ;; custom validation on arguments
           (or
-           (and (<= nbargs 2)
+           (and (<= nbargs 1)
                 (#{"list-all-fonts"} action))
-           (and (= 3 nbargs)
+           (and (= nbargs 1)
                 (#{"convert"} action)))
           {:action action :arguments restargs :options options}
           ;; failed custom validation => exit with usage summary
@@ -130,13 +134,12 @@ Validate command line arguments. Either return a map indicating the program
     ```clojure
     (defn -main [& args]
       (let [{:keys [action options arguments exit-message ok?]} (validate-args args)
-            [input-file output-directory] arguments
+            [input-file-or-dir] arguments
             [output-file] arguments]
         (if exit-message
           (exit (if ok? 0 1) exit-message)
           (case action
-            "convert"        (m2mtransform/md->mindmap input-file
-                                                       output-directory
+            "convert"        (m2mtransform/md->mindmap input-file-or-dir
                                                        options)
             "list-all-fonts" (m2mtransform/list-all-fonts
                               (or output-file "./all-fonts.svg")))))

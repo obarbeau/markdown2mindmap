@@ -26,3 +26,5 @@ This change log follows the conventions of [keepachangelog.com](http://keepachan
 - process complete directory; Both SVG and PUML output are optional
 - do not generate unchanged file
 - changed extension to 3md; updated deps
+- `markdown2mindmap_convert` helper removed.
+- update deps, point out the bug to be corrected

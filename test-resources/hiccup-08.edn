@@ -18,8 +18,8 @@
      [:p {} "H"]
      [:ul
       {}
-      [:markdown/bullet-list-item {} [:p {} "I"]]
-      [:markdown/bullet-list-item {} [:p {} "J"]]]]]]
+      [:markdown/bullet-list-item {} [:p {} "I bug here"]]
+      [:markdown/bullet-list-item {} [:p {} "J and here"]]]]]]
   [:markdown/bullet-list-item
    {}
    [:p {} "K"]

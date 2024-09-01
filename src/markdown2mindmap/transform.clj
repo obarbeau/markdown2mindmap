@@ -144,7 +144,7 @@
           output-name (str/replace (.getName input-file) #"(?i)\.3md" "")
           output-img (-> output-name
                          ;; adds selected extension
-                         (str type)
+                         (str "." type)
                          (#(io/file svg-output-directory %)))
           output-puml (-> output-name
                           (str ".puml")

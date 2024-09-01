@@ -10,7 +10,6 @@
                 [clojure.string :as str]
                 [clojure.walk :refer [prewalk]]
                 [cybermonday.ir]
-                [clojure.edn :as edn]
                 [markdown2mindmap.enter :as m2menter]
                 [markdown2mindmap.exit :as m2mexit]
                 [puget.printer :as puget]
@@ -20,6 +19,8 @@
                                          FileFormatOption
                                          FileFormat)))
     ```
+
+TODO cf https://github.com/jimmyhmiller/PlayGround/blob/master/markdown-to-blog/src/markdown_to_blog/core.clj
 
 ## `walk-fn`
 
@@ -126,7 +127,8 @@ Generates an image from puml text.
                         FileFormatOption.)]
         (-> (SourceStringReader. puml2)
             (.outputImage out format))
-        (.close out)))
+        (.close out)
+        (printf "generated %s\n" output-file)))
     ```
 
 ------------------------------------
@@ -189,10 +191,10 @@ Convert hiccup data to puml text.
 
 ## `md->mindmap`
 
-Generates an mindmap image (with the `type` format) from a markdown file.
+Generates an mindmap image (with the `type` format) from a markdown file or dir and/or a puml file.
 
 ```clojure
-(md->mindmap input-file output-directory {:keys [type style with-puml]})
+(md->mindmap input-file-or-dir {:keys [type style with-svg svg-output-dir with-puml puml-output-dir]})
 ```
 
 ??? tip  "(`defn`)"
@@ -207,28 +209,36 @@ Generates an mindmap image (with the `type` format) from a markdown file.
              hiccup->puml
              (spit output-file)))
     (defn md->mindmap
-      [input-file output-directory {:keys [type style with-puml]}]
-      (let [output-name (-> input-file
-                            ;; keeps only filename without extension
-                            (str/replace #"(?i)\.md" "")
-                            ;; nor path
-                            (str/replace #".*/" ""))
-            output-img (-> output-name
-                            ;; adds selected extension
-                           (str "." type)
-                           (#(io/file output-directory %)))
-            output-puml (-> output-name
-                            (str ".puml")
-                            (#(io/file output-directory %)))
-            styles (when style (slurp style))
-            puml (->> input-file
-                      slurp
-                      md->hiccup
-                      hiccup->puml
-                      (->puml2 styles))]
-        (when with-puml
-          (spit output-puml puml))
-        (create-image! output-img type puml)))
+      [input-file-or-dir {:keys [type style with-svg svg-output-dir with-puml puml-output-dir]}]
+      (doseq [input-file (file-seq (io/file input-file-or-dir))
+              :when (str/ends-with? input-file ".3md")
+              :let [svg-output-directory (or svg-output-dir (.getParent input-file))
+                    puml-output-directory (or puml-output-dir (.getParent input-file))]]
+        (let [;; keeps only filename without '3md' extension
+              output-name (str/replace (.getName input-file) #"(?i)\.3md" "")
+              output-img (-> output-name
+                             ;; adds selected extension
+                             (str "." type)
+                             (#(io/file svg-output-directory %)))
+              output-puml (-> output-name
+                              (str ".puml")
+                              (#(io/file puml-output-directory %)))
+              styles (when style (slurp style))
+              puml (->> input-file
+                        slurp
+                        md->hiccup
+                        hiccup->puml
+                        (->puml2 styles))
+              previous-content (and (.exists (io/as-file output-puml))
+                                    (slurp output-puml))]
+          (when (or with-puml puml-output-dir)
+            (if (= puml previous-content)
+              (printf "unchanged file %s\n" output-puml)
+              (do
+                (spit output-puml puml)
+                (printf "generated %s\n" output-puml))))
+          (when (or with-svg svg-output-dir)
+            (create-image! output-img type puml)))))
     ```
 
 ## `list-all-fonts`

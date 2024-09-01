@@ -27,7 +27,7 @@
     (def log-keys [:ol-ul :li :p :heading :modifier :buffer :ignore-string])
     ```
 
-## `{:timestamp-opts {:pattern ""}, :output-fn (fn ([data] (let [{:keys [level ?err msg_ ?ns-str ?file hostname_ timestamp_ ?line]} data] (str (force msg_) (when-let [err ?err] (str enc/system-newline (t/stacktrace err))))))), :appenders {:spit (appenders/spit-appender {:fname log-file-name}), :println {:enabled? false}}}`
+## `{:timestamp-opts {:pattern ""}, :min-level :debug, :output-fn (fn ([data] (let [{:keys [level ?err msg_ ?ns-str ?file hostname_ timestamp_ ?line]} data] (str (force msg_) (when-let [err ?err] (str enc/system-newline (t/stacktrace err))))))), :appenders {:spit (appenders/spit-appender {:fname log-file-name}), :println {:enabled? false}}}`
 
 
 
@@ -36,6 +36,7 @@
     ```clojure
     (t/merge-config!
      {:timestamp-opts  {:pattern ""}
+      :min-level :debug
       :output-fn
       (fn  ([data]
             (let [{:keys [level ?err #_vargs msg_ ?ns-str ?file hostname_
@@ -52,8 +53,4 @@
       :appenders {:spit (appenders/spit-appender {:fname log-file-name})
                   :println {:enabled? false}}})
     ```
-
-(info t/*config*)
-
-------------------------------------
 

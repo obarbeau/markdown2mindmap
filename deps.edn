@@ -3,7 +3,7 @@
         com.taoensso/timbre               {:mvn/version "6.5.0"}
         mvxcvi/puget                      {:mvn/version "1.3.4"}
         net.sourceforge.plantuml/plantuml {:mvn/version "1.2024.6"}
-        org.clojure/clojure               {:mvn/version "1.11.2"}
+        org.clojure/clojure               {:mvn/version "1.11.4"}
        ;; required when launching with BB
         org.clojure/tools.cli             {:mvn/version "1.1.230"}}
  :aliases
