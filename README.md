@@ -1,5 +1,4 @@
-[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
-[![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
+![Linux2](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)
 [![Clojure CI](https://github.com/obarbeau/markdown2mindmap/actions/workflows/clojure.yml/badge.svg)](https://github.com/obarbeau/markdown2mindmap/actions/workflows/clojure.yml)
 ![Languages](https://img.shields.io/github/languages/top/obarbeau/markdown2mindmap)
 

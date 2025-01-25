@@ -1,5 +1,12 @@
 # Todo
 
+- _bug_:
+  Hiccup isn't always strict about nesting elements.
+  This may be the reason for the bug in `input-08.md`.
+  One solution might be to bypass Hiccup and use an AST
+  to transform markdown into puml.
+  Cf Library `nextjournal/markdown`.
+
 - investigate Coogle
 
 - _Front matter_:
