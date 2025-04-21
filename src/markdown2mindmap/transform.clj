@@ -157,6 +157,8 @@
                     (->puml2 styles))
           previous-content (and (.exists (io/as-file output-puml))
                                 (slurp output-puml))]
+      (io/make-parents output-img)
+      (io/make-parents output-puml)
       (when (or with-puml puml-output-dir)
         (if (= puml previous-content)
           (printf "unchanged file %s\n" output-puml)
