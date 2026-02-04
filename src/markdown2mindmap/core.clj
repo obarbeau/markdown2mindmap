@@ -1,7 +1,8 @@
 (ns markdown2mindmap.core
   (:require [clojure.string :as str]
             [clojure.tools.cli :refer [parse-opts]]
-            [markdown2mindmap.transform :as m2mtransform])
+            [markdown2mindmap.transform :as m2mtransform]
+            [markdown2mindmap.transform-nj :as m2mtransform-nj])
   (:gen-class))
 
 (def cli-options
@@ -22,17 +23,20 @@
         ""
         "Usage: markdown2mindmap [options] convert <input-file>"
         "       markdown2mindmap [options] convert <input-dir>"
+        "       markdown2mindmap [options] convert-legacy <input-file>"
         "       markdown2mindmap list-all-fonts [output-file]"
         ""
         "Options:"
         options-summary
         ""
         "Actions:"
-        "  convert         Converts markdown file to mindmap."
+        "  convert         Converts markdown file to mindmap (using nextjournal/markdown)."
+        "  convert-legacy  Converts markdown file to mindmap (using cybermonday - legacy)."
         "  list-all-fonts  Creates an SVG image listing all fonts available on the system."
         "                  output-file defaults to ./all-fonts.svg"
         ""
         "Examples: clojure -M:run-m convert --style resources/custom.css test-resources/input-07.md ."
+        "          clojure -M:run-m convert-legacy --style resources/custom.css test-resources/input-07.md ."
         "          clojure -M:run-m list-all-fonts"]
        (str/join \newline)))
 
@@ -66,7 +70,7 @@
        (and (<= nbargs 1)
             (#{"list-all-fonts"} action))
        (and (= nbargs 1)
-            (#{"convert"} action)))
+            (#{"convert" "convert-legacy"} action)))
       {:action action :arguments restargs :options options}
 
       ;; failed custom validation => exit with usage summary
@@ -80,8 +84,10 @@
     (if exit-message
       (exit (if ok? 0 1) exit-message)
       (case action
-        "convert"        (m2mtransform/md->mindmap input-file-or-dir
+        "convert"        (m2mtransform-nj/md->mindmap input-file-or-dir
+                                                      options)
+        "convert-legacy" (m2mtransform/md->mindmap input-file-or-dir
                                                    options)
-        "list-all-fonts" (m2mtransform/list-all-fonts
+        "list-all-fonts" (m2mtransform-nj/list-all-fonts
                           (or output-file "./all-fonts.svg")))))
   (exit 0 ":ok"))

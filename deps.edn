@@ -1,5 +1,6 @@
 {:paths ["src" "resources"]
  :deps {com.kiranshila/cybermonday        {:mvn/version "0.6.215"}
+        io.github.nextjournal/markdown    {:mvn/version "0.6.157"}
         com.taoensso/timbre               {:mvn/version "6.5.0"}
         mvxcvi/puget                      {:mvn/version "1.3.4"}
         net.sourceforge.plantuml/plantuml {:mvn/version "1.2024.6"}
