@@ -4,7 +4,7 @@
         mvxcvi/puget                      {:mvn/version "1.3.4"}
         net.sourceforge.plantuml/plantuml {:mvn/version "1.2024.6"}
         org.clojure/clojure               {:mvn/version "1.11.4"}
-       ;; required when launching with BB
+        ;; required when launching with BB
         org.clojure/tools.cli             {:mvn/version "1.1.230"}}
  :aliases
  {:dev {;; for the profilers
@@ -21,7 +21,7 @@
                       :main-ns markdown2mindmap.core
                       :version "0.1.0-SNAPSHOT"}}
 
-  ;; clojure -X:env/test:flow-doc
+  ;; clojure -X:test/env:flow-doc
   :flow-doc {:extra-deps {com.github.jpmonettas/flow-storm-dbg {:mvn/version "3.7.5"}}
              :exec-fn flow-storm.api/cli-doc
              :exec-args {:result-name "autodoc"

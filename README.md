@@ -30,7 +30,7 @@ Download from https://github.com/obarbeau/markdown2mindmap
 FIXME: update this part
 
 This project uses the `seancorfield/build-clj` library and `build.clj` file.
-Use `clj -T:dev:build <task-name>` for all these tasks.
+Use `clj -T:dev:build org.corfield.build/<task-name>` for all these tasks.
 
 Run the application: see [usage](/src/markdown2mindmap/core.clj#L15-L26)
 
@@ -38,19 +38,19 @@ Run the project's tests
 (this will generate test images in the output directory):
 
 ```shell
-clojure -T:dev:build test
+clojure -T:dev:build org.corfield.build/test
 ```
 
-Génerate the project's documentation:
+Generate the project's documentation:
 
 ```shell
-clojure -T:dev:build codox
+clojure -T:dev:build org.corfield.build/codox
 ```
 
 Run the project's CI pipeline and build an uberjar:
 
 ```shell
-clojure -T:dev:build ci
+clojure -T:dev:build org.corfield.build/ci
 ```
 
 This will produce an updated `pom.xml` file with synchronized dependencies inside the `META-INF`
