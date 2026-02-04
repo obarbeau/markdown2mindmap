@@ -1,6 +1,6 @@
 # Todo
 
-- _bug_:
+- [OK] _bug_:
   Hiccup isn't always strict about nesting elements.
   This may be the reason for the bug in `input-08.md`.
   One solution might be to bypass Hiccup and use an AST
@@ -26,9 +26,6 @@
   mkdocs plugin <https://www.mkdocs.org/dev-guide/plugins>
   to automatically generate mindmaps (`.3md`).
   `$HOME/.local/lib/python3.8/site-packages`
-
-- _hiccup_:
-  add an option to generate the intermediate hiccup file
 
 - _badges_:
   add badges to the readme: CI ok, version, tests ok, etc
@@ -56,28 +53,13 @@
 
 pistes d'amélioration:
 
-1. Absence de gestion d'erreurs
-   Aucun `try/catch` dans le code. Les fichiers invalides, erreurs PlantUML ou problèmes I/O ne sont pas gérés. Un fichier `.3md` malformé provoquera un crash sans message explicite.
-
-2. État mutable via atom
-   Le pattern `result` atom traversant `enter-*`/`exit-*` fonctionne mais rend le code difficile à tester unitairement et à raisonner. Une alternative serait un reduce avec état immutable ou un state monad.
-
-3. Code commenté
-   `hiccup->puml-file` (transform.clj:127) est commenté. À supprimer ou réactiver.
-
-4. Chemins hardcodés
+1. Chemins hardcodés
    `./output/markdown2mindmap.log` dans `log.clj` devrait être configurable.
 
-5. Bug connu non résolu
-   Le `todo.md` mentionne un bug de nesting hiccup dans `input-08.md` depuis longtemps. La piste `nextjournal/markdown` est suggérée mais non explorée.
-
-6. README incomplet
+2. README incomplet
    Plusieurs sections "FIXME" dans le README (Installation, Options, Examples).
 
-7. Potentiel de simplification dans exit.clj
-   Les fonctions `last-simple-child?`/`last-nested-child?`/`last-child?` avec leurs tuples de retour `[bool value]` sont un peu verbeuses. Un protocole ou multimethod pourrait clarifier.
-
-8. Logs verbeux en production
+3. Logs verbeux en production
    Le niveau `:debug` est actif par défaut dans `log.clj`. Devrait être configurable ou `:info` par défaut.
 
 Le plus impactant serait probablement d'ajouter la gestion d'erreurs et de résoudre le bug hiccup. Veux-tu que j'approfondisse un point en particulier?

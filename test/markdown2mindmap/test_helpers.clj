@@ -47,7 +47,7 @@
 (defn md-file->hiccup
   "Markdown file to hiccup file"
   [number]
-  (m2mtransform/md->hiccup (slurp-input number)))
+  (:ok (m2mtransform/md->hiccup (slurp-input number))))
 
 (defn read-hiccup
   "Read edn from hiccup file"

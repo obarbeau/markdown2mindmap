@@ -6,12 +6,11 @@
    cybermonday-based implementation."
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
+            [markdown2mindmap.errors :as err]
             [nextjournal.markdown :as md]
-            [taoensso.timbre :refer [info]])
-  (:import (java.io FileOutputStream)
-           (net.sourceforge.plantuml SourceStringReader
-                                     FileFormatOption
-                                     FileFormat)))
+            [taoensso.timbre :refer [info warnf]]))
+
+
 
 ;; ------------------------------------
 ;; Preprocessing
@@ -144,15 +143,23 @@
                new-context
                (into result lines))))))
 
+
+
 ;; ------------------------------------
 ;; Public API
 ;; ------------------------------------
 
 (defn md->ast
   "Parse markdown string to AST using nextjournal/markdown.
-   Preprocesses HTML tags to standard markdown syntax."
+   Preprocesses HTML tags to standard markdown syntax.
+   Returns {:ok ast} on success, {:error ...} on failure."
   [markdown-str]
-  (md/parse (preprocess-markdown markdown-str)))
+  (try
+    {:ok (md/parse (preprocess-markdown markdown-str))}
+    (catch Exception e
+      (err/log-error :parse-error
+                     "Error parsing markdown"
+                     :cause e))))
 
 (defn ast->puml-str
   "Convert AST to PlantUML mindmap string (without @start/@end directives)."
@@ -170,19 +177,66 @@
     puml
     "@endmindmap")))
 
-(defn- create-image!
-  "Generate an image file from PlantUML text."
-  [output-file type puml-text]
-  (let [out (FileOutputStream. (io/file output-file))
-        format (->> type
-                    str/upper-case
-                    (.getField FileFormat)
-                    (#(.get ^java.lang.reflect.Field % nil))
-                    FileFormatOption.)]
-    (-> (SourceStringReader. puml-text)
-        (.outputImage out format))
-    (.close out)
-    (printf "generated %s\n" output-file)))
+
+
+(defn- process-single-file
+  "Process a single markdown file to mindmap.
+   Returns {:ok results} or {:error ...}."
+  [input-file {:keys [type style with-svg svg-output-dir with-puml puml-output-dir]}]
+  (let [svg-output-directory (or svg-output-dir (.getParent input-file))
+        puml-output-directory (or puml-output-dir (.getParent input-file))
+        output-name (str/replace (.getName input-file) #"(?i)\.3md" "")
+        output-img (io/file svg-output-directory (str output-name "." type))
+        output-puml (io/file puml-output-directory (str output-name ".puml"))]
+
+    ;; Read input file
+    (let [input-result (err/safe-slurp input-file)]
+      (if (:error input-result)
+        input-result
+
+        ;; Read style file if specified
+        (let [style-result (if style (err/safe-slurp style) {:ok nil})]
+          (if (:error style-result)
+            style-result
+
+            ;; Parse markdown
+            (let [ast-result (md->ast (:ok input-result))]
+              (if (:error ast-result)
+                (assoc ast-result :file (str input-file))
+
+                ;; Generate PlantUML
+                (let [puml (-> (:ok ast-result)
+                               ast->puml-str
+                               (#(->puml-wrapped (:ok style-result) %)))
+                      results (atom {:ok true :files []})]
+
+                  ;; Create output directories
+                  (when (or with-puml puml-output-dir)
+                    (err/safe-make-parents output-puml))
+                  (when (or with-svg svg-output-dir)
+                    (err/safe-make-parents output-img))
+
+                  ;; Write PUML file
+                  (when (or with-puml puml-output-dir)
+                    (let [previous-content (when (.exists (io/as-file output-puml))
+                                             (:ok (err/safe-slurp output-puml)))]
+                      (if (= puml previous-content)
+                        (printf "unchanged file %s\n" output-puml)
+                        (let [result (err/safe-spit output-puml puml)]
+                          (if (:error result)
+                            (swap! results assoc :error true :puml-error result)
+                            (do
+                              (printf "generated %s\n" output-puml)
+                              (swap! results update :files conj (str output-puml))))))))
+
+                  ;; Generate image
+                  (when (or with-svg svg-output-dir)
+                    (let [result (err/create-image! output-img type puml)]
+                      (if (:error result)
+                        (swap! results assoc :error true :image-error result)
+                        (swap! results update :files conj (str output-img)))))
+
+                  @results)))))))))
 
 (defn md->mindmap
   "Generate mindmap image(s) from markdown file(s).
@@ -193,36 +247,44 @@
    - :with-svg - Generate SVG output
    - :svg-output-dir - Output directory for SVG files
    - :with-puml - Generate intermediate .puml file
-   - :puml-output-dir - Output directory for .puml files"
-  [input-file-or-dir {:keys [type style with-svg svg-output-dir with-puml puml-output-dir]}]
-  (doseq [input-file (file-seq (io/file input-file-or-dir))
-          :when (str/ends-with? (str input-file) ".3md")
-          :let [svg-output-directory (or svg-output-dir (.getParent input-file))
-                puml-output-directory (or puml-output-dir (.getParent input-file))]]
-    (let [output-name (str/replace (.getName input-file) #"(?i)\.3md" "")
-          output-img (io/file svg-output-directory (str output-name "." type))
-          output-puml (io/file puml-output-directory (str output-name ".puml"))
-          styles (when style (slurp style))
-          puml (->> input-file
-                    slurp
-                    md->ast
-                    ast->puml-str
-                    (->puml-wrapped styles))
-          previous-content (and (.exists (io/as-file output-puml))
-                                (slurp output-puml))]
-      (io/make-parents output-img)
-      (io/make-parents output-puml)
-      (when (or with-puml puml-output-dir)
-        (if (= puml previous-content)
-          (printf "unchanged file %s\n" output-puml)
+   - :puml-output-dir - Output directory for .puml files
+
+   Returns a map with :processed (count), :errors (list of errors)."
+  [input-file-or-dir options]
+  (let [input (io/file input-file-or-dir)]
+    (if-not (.exists input)
+      (do
+        (err/log-error :file-not-found
+                   (str "Input path does not exist: " input-file-or-dir)
+                   :file input-file-or-dir)
+        {:processed 0 :errors [{:file input-file-or-dir :type :file-not-found}]})
+
+      (let [files (filter #(str/ends-with? (str %) ".3md") (file-seq input))
+            results (atom {:processed 0 :errors []})]
+
+        (if (empty? files)
           (do
-            (spit output-puml puml)
-            (printf "generated %s\n" output-puml))))
-      (when (or with-svg svg-output-dir)
-        (create-image! output-img type puml)))))
+            (warnf "No .3md files found in: %s" input-file-or-dir)
+            {:processed 0 :errors [] :warning "No .3md files found"})
+
+          (do
+            (doseq [file files]
+              (info "Processing:" (str file))
+              (let [result (process-single-file file options)]
+                (swap! results update :processed inc)
+                (when (:error result)
+                  (swap! results update :errors conj
+                         {:file (str file)
+                          :type (:type result)
+                          :message (:message result)}))))
+            @results))))))
 
 (defn list-all-fonts
-  "Create an SVG image listing all fonts available on the system."
+  "Create an SVG image listing all fonts available on the system.
+   Returns {:ok file} on success, {:error ...} on failure."
   [output-file]
-  (create-image! output-file "svg"
-                 (str/join \newline ["@startuml" "listfonts" "@enduml"])))
+  (let [parent-result (err/safe-make-parents output-file)]
+    (if (:error parent-result)
+      parent-result
+      (err/create-image! output-file "svg"
+                     (str/join \newline ["@startuml" "listfonts" "@enduml"])))))

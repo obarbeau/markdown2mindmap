@@ -48,6 +48,50 @@
   (println msg)
   (System/exit status))
 
+(defn- format-error
+  "Format an error map for user display."
+  [{:keys [file type message]}]
+  (str "  - " (when file (str file ": "))
+       (name type)
+       (when message (str " - " message))))
+
+(defn- report-results
+  "Report processing results to user and return appropriate exit code.
+   Returns 0 on success, 1 if any errors occurred."
+  [result]
+  (cond
+    ;; Single error result (from list-all-fonts)
+    (:error result)
+    (do
+      (println "Error:" (:message result))
+      1)
+
+    ;; Processing results with counts
+    (:processed result)
+    (let [{:keys [processed errors warning]} result]
+      (when warning
+        (println "Warning:" warning))
+      (println (str "Processed " processed " file(s)."))
+      (if (seq errors)
+        (do
+          (println (str "Errors (" (count errors) "):"))
+          (doseq [err errors]
+            (println (format-error err)))
+          1)
+        0))
+
+    ;; Success result (from list-all-fonts)
+    (:ok result)
+    (do
+      (println "Success:" (:ok result))
+      0)
+
+    ;; Unknown result format
+    :else
+    (do
+      (println "Unknown result:" result)
+      0)))
+
 (defn validate-args
   "Validate command line arguments. Either return a map indicating the program
   should exit (with a error message, and optional ok status), or a map
@@ -83,11 +127,13 @@
         [output-file] arguments]
     (if exit-message
       (exit (if ok? 0 1) exit-message)
-      (case action
-        "convert"        (m2mtransform-nj/md->mindmap input-file-or-dir
-                                                      options)
-        "convert-legacy" (m2mtransform/md->mindmap input-file-or-dir
-                                                   options)
-        "list-all-fonts" (m2mtransform-nj/list-all-fonts
-                          (or output-file "./all-fonts.svg")))))
-  (exit 0 ":ok"))
+      (let [result
+            (case action
+              "convert"        (m2mtransform-nj/md->mindmap input-file-or-dir
+                                                            options)
+              "convert-legacy" (m2mtransform/md->mindmap input-file-or-dir
+                                                         options)
+              "list-all-fonts" (m2mtransform-nj/list-all-fonts
+                                (or output-file "./all-fonts.svg")))
+            exit-code (report-results result)]
+        (exit exit-code (if (zero? exit-code) ":ok" ":error"))))))

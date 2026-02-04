@@ -27,53 +27,53 @@
 (deftest simple-heading-test
   (testing "Simple heading conversion"
     (let [md "# Title"
-          result (sut/ast->puml-str (sut/md->ast md))]
+          result (sut/ast->puml-str (:ok (sut/md->ast md)))]
       (is (= "* Title" result)))))
 
 (deftest multiple-headings-test
   (testing "Multiple heading levels"
     (let [md "# H1\n\n## H2\n\n### H3"
-          result (sut/ast->puml-str (sut/md->ast md))]
+          result (sut/ast->puml-str (:ok (sut/md->ast md)))]
       (is (= "* H1\n** H2\n*** H3" result)))))
 
 (deftest simple-list-test
   (testing "Simple bullet list"
     (let [md "# Root\n\n- Item 1\n- Item 2\n- Item 3"
-          result (sut/ast->puml-str (sut/md->ast md))]
+          result (sut/ast->puml-str (:ok (sut/md->ast md)))]
       (is (= "* Root\n**_ Item 1\n**_ Item 2\n**_ Item 3" result)))))
 
 (deftest nested-list-test
   (testing "Nested bullet list - the bug that was fixed"
     (let [md "# A\n\n- B\n  - C\n  - H\n    - I\n    - J"
-          result (sut/ast->puml-str (sut/md->ast md))]
+          result (sut/ast->puml-str (:ok (sut/md->ast md)))]
       (is (= "* A\n**_ B\n***_ C\n***_ H\n****_ I\n****_ J" result)))))
 
 (deftest inline-modifiers-test
   (testing "Inline modifiers in headings"
     (let [md "# Hello **bold** and *italic*"
-          result (sut/ast->puml-str (sut/md->ast md))]
+          result (sut/ast->puml-str (:ok (sut/md->ast md)))]
       (is (= "* Hello <b>bold</b> and <i>italic</i>" result))))
   
   (testing "Strikethrough with HTML syntax"
     (let [md "# <s>old</s> => new"
-          result (sut/ast->puml-str (sut/md->ast md))]
+          result (sut/ast->puml-str (:ok (sut/md->ast md)))]
       (is (= "* <s>old</s> => new" result))))
   
   (testing "Strikethrough with ~~ syntax"
     (let [md "# ~~old~~ => new"
-          result (sut/ast->puml-str (sut/md->ast md))]
+          result (sut/ast->puml-str (:ok (sut/md->ast md)))]
       (is (= "* <s>old</s> => new" result)))))
 
 (deftest heading-with-list-test
   (testing "Heading followed by list at correct level"
     (let [md "# Root\n\n## Section\n\n- Item 1\n- Item 2"
-          result (sut/ast->puml-str (sut/md->ast md))]
+          result (sut/ast->puml-str (:ok (sut/md->ast md)))]
       (is (= "* Root\n** Section\n***_ Item 1\n***_ Item 2" result)))))
 
 (deftest loose-list-test
   (testing "Loose list (with blank lines) - paragraph content"
     (let [md "# A\n\n- B\n\n  - C\n  - D"
-          result (sut/ast->puml-str (sut/md->ast md))]
+          result (sut/ast->puml-str (:ok (sut/md->ast md)))]
       (is (= "* A\n**_ B\n***_ C\n***_ D" result)))))
 
 (deftest compare-with-expected-test
@@ -89,7 +89,7 @@
                             (str/replace #"@startmindmap\n\n?" "")
                             (str/replace #"\n?@endmindmap" "")
                             str/trim)
-          actual (sut/ast->puml-str (sut/md->ast input))]
+          actual (sut/ast->puml-str (:ok (sut/md->ast input)))]
       (testing (str "Input " n " produces correct output")
         (is (= expected-body actual)
             (str "Mismatch for input-" n))))))
