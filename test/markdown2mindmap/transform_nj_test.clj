@@ -1,4 +1,5 @@
 (ns markdown2mindmap.transform-nj-test
+  "Tests for the nextjournal/markdown-based implementation."
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.string :as str]
             [taoensso.timbre :as t :refer [infof]]
@@ -75,30 +76,20 @@
           result (sut/ast->puml-str (sut/md->ast md))]
       (is (= "* A\n**_ B\n***_ C\n***_ D" result)))))
 
-(deftest input-08-bug-test
-  (testing "Input-08 nested list bug is fixed"
-    (let [md (slurp "test-resources/input-08.3md")
-          result (sut/ast->puml-str (sut/md->ast md))
-          lines (str/split-lines result)]
-      ;; I and J should be at level 4 (****_), not level 3 (***_)
-      (is (some #(= "****_ I bug here" %) lines) 
-          "I bug here should be at level 4")
-      (is (some #(= "****_ J and here" %) lines)
-          "J and here should be at level 4"))))
-
-(deftest compare-with-legacy-test
-  (testing "Compare outputs for tests 1-7 (excluding buggy test 8)"
-    (mth/delete-log)
-    (doseq [n (range 1 8)]  ; Tests 1-7 only
-      (infof "--- NJ Test %d ---" n)
-      (let [input (mth/slurp-it "input" n "3md")
-            expected-puml (mth/slurp-puml n)
-            ;; Remove @startmindmap/@endmindmap wrapper for comparison
-            expected-body (-> expected-puml
-                              (str/replace #"@startmindmap\n\n?" "")
-                              (str/replace #"\n?@endmindmap" "")
-                              str/trim)
-            actual (sut/ast->puml-str (sut/md->ast input))]
-        (testing (str "Input " n " produces same output")
-          (is (= expected-body actual)
-              (str "Mismatch for input-" n)))))))
+(deftest compare-with-expected-test
+  "Compare nextjournal implementation output with expected .puml files.
+   All 8 tests should pass, including test 8 which has correct nesting."
+  (mth/delete-log)
+  (doseq [n (range 1 9)]
+    (infof "--- NJ Test %d ---" n)
+    (let [input (mth/slurp-it "input" n "3md")
+          expected-puml (mth/slurp-puml n)
+          ;; Remove @startmindmap/@endmindmap wrapper for comparison
+          expected-body (-> expected-puml
+                            (str/replace #"@startmindmap\n\n?" "")
+                            (str/replace #"\n?@endmindmap" "")
+                            str/trim)
+          actual (sut/ast->puml-str (sut/md->ast input))]
+      (testing (str "Input " n " produces correct output")
+        (is (= expected-body actual)
+            (str "Mismatch for input-" n))))))

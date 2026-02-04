@@ -8,8 +8,8 @@
 ***_ F
 ***_ G
 ***_ H
-***_ I bug here
-***_ J and here
+****_ I bug here for legacy cybermonday implementation
+****_ J here also
 **_ K
 ***_ L
 ****_ M
@@ -21,8 +21,8 @@
 ****_ S
 ***_ T
 ***_ U
-***_ V
-***_ W
-***_ X
-***_ Y
+****_ V here also
+****_ W here also
+****_ X here also
+****_ Y here also
 @endmindmap
