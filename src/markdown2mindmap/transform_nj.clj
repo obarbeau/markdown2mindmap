@@ -47,10 +47,14 @@
       "")))
 
 (defn- plain->text
-  "Extract text from a :plain node (used in list items)."
+  "Extract text from a :plain node (used in list items).
+   Stops at first :softbreak to match legacy behavior (ignore continuation text)."
   [node]
   (if (= :plain (:type node))
-    (apply str (map node->text (:content node)))
+    (->> (:content node)
+         (take-while #(not= :softbreak (:type %)))
+         (map node->text)
+         (apply str))
     (node->text node)))
 
 (declare ast->puml-lines)

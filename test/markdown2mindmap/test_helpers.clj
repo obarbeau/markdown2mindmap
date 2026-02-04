@@ -39,7 +39,7 @@
   (slurp-it "hiccup" number "edn"))
 
 (defn slurp-input [number]
-  (slurp-it "input" number "md"))
+  (slurp-it "input" number "3md"))
 
 (defn slurp-puml [number]
   (slurp-it "map" number "puml"))
