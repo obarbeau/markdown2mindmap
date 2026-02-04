@@ -1,76 +1,104 @@
 (ns markdown2mindmap.transform
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
-            [clojure.walk :refer [prewalk]]
             [cybermonday.ir]
             [markdown2mindmap.enter :as m2menter]
             [markdown2mindmap.exit :as m2mexit]
             [puget.printer :as puget]
-            [taoensso.timbre :as t :refer [info infof]])
+            [taoensso.timbre :refer [info infof]])
   (:import (java.io FileOutputStream)
            (net.sourceforge.plantuml SourceStringReader
                                      FileFormatOption
                                      FileFormat)))
 
-;; TODO cf https://github.com/jimmyhmiller/PlayGround/blob/master/markdown-to-blog/src/markdown_to_blog/core.clj
+(declare walk-node)
 
-(defn- walk-fn
-  [result x]
+(defn- walk-children
+  "Walk all children of a node, threading state through each.
+   Returns final state after processing all children."
+  [state children]
+  (reduce walk-node state children))
+
+(defn- walk-vector
+  "Process a vector (hiccup element), calling appropriate enter function
+   then walking children. Returns new state."
+  [state x]
+  (let [[elt-name maybe-attrs & rest-elts] x
+        ;; Some elements have attrs map, some don't
+        has-attrs? (map? maybe-attrs)
+        children (if has-attrs? rest-elts (cons maybe-attrs rest-elts))]
+    (infof "\nvector with %d children=%s" (count children) x)
+    (case elt-name
+      :div ;; root div
+      (walk-children state children)
+
+      :markdown/heading
+      (-> state
+          (m2menter/enter-heading x)
+          (walk-children children))
+
+      :ul
+      (-> state
+          (m2menter/enter-ol-ul x)
+          (walk-children children))
+
+      :ol
+      (-> state
+          (m2menter/enter-ol-ul x)
+          (walk-children children))
+
+      :markdown/bullet-list-item
+      (-> state
+          m2menter/enter-li
+          (walk-children children))
+
+      :markdown/ordered-list-item
+      (-> state
+          m2menter/enter-li
+          (walk-children children))
+
+      :markdown/soft-line-break
+      (m2mexit/through-slb state)
+
+      :p
+      (-> state
+          (m2menter/enter-p x)
+          (walk-children children))
+
+      :em
+      (-> state
+          m2menter/enter-em
+          ;; Don't wrap in walk-children - process inline modifier's children
+          ;; as if they were children of the parent element
+          (walk-children children))
+
+      :s
+      (-> state
+          m2menter/enter-s
+          (walk-children children))
+
+      :strong
+      (-> state
+          m2menter/enter-strong
+          (walk-children children))
+
+      ;; else - unhandled element type
+      (do
+        (info "Not yet processed: " x)
+        (walk-children state children)))))
+
+(defn- walk-node
+  "Walk a single node in the hiccup tree. Returns new state."
+  [state x]
   (cond
-    (vector? x)
-    (let [[elt-name _attributes & children] x]
-      (infof "\nvector with %d children=%s" (count children) x)
-      (case elt-name
-        :div ;;root div
-        x
-
-        :markdown/heading
-        (m2menter/enter-heading result x)
-
-        :ul
-        (m2menter/enter-ol-ul result x)
-
-        :ol
-        (m2menter/enter-ol-ul result x)
-
-        :markdown/bullet-list-item
-        (m2menter/enter-li result x)
-
-        :markdown/ordered-list-item
-        (m2menter/enter-li result x)
-
-        :markdown/soft-line-break
-        (m2mexit/through-slb result x)
-
-        :p
-        (m2menter/enter-p result x)
-
-        :em
-        (m2menter/enter-em result x)
-
-        :s
-        (m2menter/enter-s result x)
-
-        :strong
-        (m2menter/enter-strong result x)
-
-        ;; else
-        (do
-          (info "Not yet processed: " x)
-          x)))
-
-    (string? x)
-    (m2mexit/process-string result x)
-
-    #_#_:else
-      (infof "What is it? %s" x)))
+    (vector? x) (walk-vector state x)
+    (string? x) (m2mexit/process-string state x)
+    :else state))
 
 (defn- walk-hiccup
-  "Walk function to process hiccup data."
+  "Walk function to process hiccup data. Returns final state."
   [hiccup-data]
-  (let [result (atom {})]
-    (prewalk (partial walk-fn result) hiccup-data)
-    @result))
+  (walk-node {} hiccup-data))
 
 (defn ->puml2
   "Wraps puml text to puml syntax."
@@ -90,7 +118,7 @@
         format (->> type
                     str/upper-case
                     (.getField FileFormat)
-                    ;;The nil is there because you are getting a static field,
+                    ;; The nil is there because you are getting a static field,
                     ;; rather than a member field of a particular object.
                     (#(.get ^java.lang.reflect.Field % nil))
                     FileFormatOption.)]
@@ -123,15 +151,6 @@
        :puml
        reverse
        (str/join "\n")))
-
-#_(defn hiccup->puml-file
-    "Generates a puml file from an hiccup file."
-    [input-file output-file]
-    (->> input-file
-         slurp
-         edn/read-string
-         hiccup->puml
-         (spit output-file)))
 
 (defn md->mindmap
   "Generates an mindmap image (with the `type` format) from a markdown file or dir and/or a puml file."

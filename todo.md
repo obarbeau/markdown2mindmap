@@ -34,7 +34,6 @@
   add badges to the readme: CI ok, version, tests ok, etc
 
 - _Templates_:
-
   - apply template transformations (style/color) on the generated hiccup,
     with `cgrand` lib for example.
   - And/or with `noprompt/garden`?
@@ -52,3 +51,5 @@
 - _automatic left/right distribution of nodes_.
 
 - <https://github.com/d4span/evermind>: a été archivé.
+
+- cf <https://github.com/jimmyhmiller/PlayGround/blob/master/markdown-to-blog/src/markdown_to_blog/core.clj>
